@@ -14,9 +14,9 @@ class SearchPage extends React.Component {
                             </div>
                             <div className="scenarioWrapper">
                                 <h5>Scenario</h5>
-                                <p>Imagine you are Alice. Your task is to interact with the bot to find a suitable
-                                    housing for Alice
-                                    Here is some info about her
+                                <p>Imagine you are Alice. Your task is to fill in the constraints to find a suitable
+                                    housing option for Alice.
+                                    Here is some info about her.
                                     Alice is looking for a place to stay in Delft for at least 1 year.
                                     She is an international student and requires registration in the municipality.
                                     She has a maximum budget of 600 euros and the commute time to the university should
