@@ -11,6 +11,12 @@ class SearchResults extends React.Component {
 
     resultList = () => {
         let filters = this.props.filters;
+        // let resultList = [];
+
+        // houseData.map((house, index) => {
+        //     let houseItem;
+        //     houseItem.duration = filters.duration === 0 ? house: filters.duration;
+        // })
         let resultList = houseData.filter((house) => (
             house.duration === filters.duration &&
             house.rent <= filters.maxRent &&

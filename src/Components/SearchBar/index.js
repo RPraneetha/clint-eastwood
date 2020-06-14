@@ -11,7 +11,7 @@ class SearchBar extends React.Component {
       filters : {
         "duration": 0,
         // "minRent": 0,
-        "maxRent": -1,
+        "maxRent": 9999999,
         "houseType": null,
         "interiorType": null,
         "supermarkets": false,
