@@ -37,16 +37,6 @@ html, body {
   border-color: #333;
 }
 
-.btn-black:hover, .btn-black:focus, .btn-black:active, .btn-black.active, .open > .dropdown-toggle.btn-black {
-  background-color: #000;
-  color: #fff;
-}
-
-.btn-o.btn-black:hover, .btn-o.btn-black:focus, .btn-o.btn-black:active, .btn-o.btn-black.active, .open > .dropdown-toggle.btn-o.btn-black {
-  background-color: #000;
-  color: #fff;
-}
-
 .btn-green {
   background-color: #0eaaa6;
   color: #fff;
@@ -60,11 +50,6 @@ html, body {
 
 .btn-green:hover, .btn-green:focus, .btn-green:active, .btn-green.active, .open > .dropdown-toggle.btn-green {
   background-color: #068b85;
-  color: #fff;
-}
-
-.btn-o.btn-green:hover, .btn-o.btn-green:focus, .btn-o.btn-green:active, .btn-o.btn-green.active, .open > .dropdown-toggle.btn-o.btn-green {
-  background-color: #0eaaa6;
   color: #fff;
 }
 

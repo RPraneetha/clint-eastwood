@@ -27,3 +27,17 @@
     color: #0eaaa6;
     text-align: center;
 }
+
+.proceed-wrapper {
+    display: flex;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: relative;
+    justify-content: end;
+    padding: 50px;
+}
+
+.FaArrowRight {
+    margin-bottom: 3px;
+}

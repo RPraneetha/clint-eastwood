@@ -21,7 +21,7 @@ class SearchPage extends React.Component {
                                     She is an international student and requires registration in the municipality.
                                     She has a maximum budget of 600 euros and the commute time to the university should
                                     be less than 10 minutes by bike.
-                                    Further, she prefers a place near the city centre and supermarkets.
+                                    Further, she prefers a furnished place near the city centre and supermarkets.
                                     She also prefers a studio compared to sharing.</p>
                             </div>
                             <div className="selectBarWrapper">

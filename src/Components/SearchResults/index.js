@@ -1,6 +1,9 @@
 import * as React from 'react';
 import './index.css';
 import SingleHouse from '../SingleHouse';
+import { Button, Row } from "react-bootstrap";
+import { FaArrowRight } from "react-icons/fa";
+import { Link } from 'react-router-dom';
 
 const houseData = require('../../Data/houseData.json');
 
@@ -21,7 +24,7 @@ class SearchResults extends React.Component {
             house.duration === filters.duration &&
             house.rent <= filters.maxRent &&
             // house.rent >= filters.minRent &&
-            house.furnishedType === filters.interiorType &&
+            house.interiorType === filters.interiorType &&
             house.houseType === filters.houseType &&
             house.dutch === filters.dutch &&
             house.registration === filters.registration &&
@@ -30,7 +33,7 @@ class SearchResults extends React.Component {
             house.couples === filters.couples &&
             house.pets === filters.pets
         ))
-
+        console.log(resultList)
         return (
             <div className="resultsList">
                 <div className="row">
@@ -45,6 +48,15 @@ class SearchResults extends React.Component {
                             <h1>Sorry, there are no houses matching your requirements.</h1>
                         </span>
                     }
+                </div>
+                <div className="proceed-wrapper">
+
+                        <Link to="/exitForm">
+                            <Button size="lg" className="btn btn-green">
+                            Proceed <FaArrowRight className={"FaArrowRight"}/>
+                            </Button>
+                        </Link>
+
                 </div>
             </div>
         );

@@ -18,7 +18,8 @@ class SearchBar extends React.Component {
         "uni": false,
         "dutch": false,
         "registration": false,
-        "couples": false
+        "couples": false,
+        "pets": false
       },
       isSubmitted: false
     }
@@ -45,7 +46,7 @@ class SearchBar extends React.Component {
           <Form className="form-inline">
             <Form.Group controlId="duration" className={"form-control-select"}>
               <Form.Control as="select"  onChange={this.handleInputChange}>
-                <option selected={true} disabled="disabled">Duration</option>
+                <option selected={true} disabled="disabled">Duration (in months)</option>
                 {times(24, i => <option key={i}>{i + 1}</option>)}
               </Form.Control>
             </Form.Group>
