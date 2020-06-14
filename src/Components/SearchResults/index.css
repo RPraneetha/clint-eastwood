@@ -1,0 +1,29 @@
+.searchForm {
+    margin: 20px;
+    width: 100%;
+    padding: 20px 30px;
+    max-width: 1400px;
+}
+
+@media screen and (max-width: 767px) {
+    .resultTab ul {
+        padding-left: 10px;
+    }
+    .resultTab {
+        margin-left: -10px;
+    }
+    .searchForm {
+        padding: 15px 5px;
+    }
+}
+
+.row {
+    justify-content: center;
+    text-align: center;
+}
+
+.nohouses {
+    display: flex;
+    color: #0eaaa6;
+    text-align: center;
+}
