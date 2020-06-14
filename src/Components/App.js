@@ -2,8 +2,7 @@ import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SearchPage from "./SearchPage";
-import { BrowserRouter as Router, Link } from 'react-router-dom';
-import {  Route } from 'react-router-dom';
+import { HashRouter as Router, Route } from 'react-router-dom';
 import Form from "./Form";
 
 class App extends React.Component {
