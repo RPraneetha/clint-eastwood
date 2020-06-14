@@ -10,7 +10,7 @@ class SearchBar extends React.Component {
     this.state = {
       filters : {
         "duration": 0,
-        "minRent": 0,
+        // "minRent": 0,
         "maxRent": 0,
         "houseType": null,
         "interiorType": null,
@@ -48,27 +48,27 @@ class SearchBar extends React.Component {
                 {times(24, i => <option key={i}>{i + 1}</option>)}
               </Form.Control>
             </Form.Group>
-            <div className="form-group form-group-price">
-              <InputGroup className="input-group">
-                <InputGroup.Prepend>
-                  <InputGroup.Text
-                      id="basic-addon1"
-                      className="input-group-addon"
-                  >
-                    €
-                  </InputGroup.Text>
-                </InputGroup.Prepend>
-                <FormControl
-                    id={"minRent"}
-                    className="form-control price"
-                    type="number"
-                    placeholder="Min. Rent"
-                    aria-label="Min. Rent"
-                    onChange={this.handleInputChange}
-                    min="0"
-                />
-              </InputGroup>
-            </div>
+            {/*<div className="form-group form-group-price">*/}
+            {/*//   <InputGroup className="input-group">*/}
+            {/*//     <InputGroup.Prepend>*/}
+            {/*      <InputGroup.Text*/}
+            {/*          id="basic-addon1"*/}
+            {/*          className="input-group-addon"*/}
+            {/*      >*/}
+            {/*        €*/}
+            {/*      </InputGroup.Text>*/}
+            {/*    </InputGroup.Prepend>*/}
+            {/*//     <FormControl*/}
+            {/*//         id={"minRent"}*/}
+            {/*//         className="form-control price"*/}
+            {/*//         type="number"*/}
+            {/*        placeholder="Min. Rent"*/}
+            {/*        aria-label="Min. Rent"*/}
+            {/*        onChange={this.handleInputChange}*/}
+            {/*        min="0"*/}
+            {/*    />*/}
+            {/*  </InputGroup>*/}
+            {/*</div>*/}
             <div className="form-group">
               <InputGroup className="input-group">
                 <InputGroup.Prepend>
@@ -86,7 +86,7 @@ class SearchBar extends React.Component {
                     placeholder="Max. Rent"
                     aria-label="Max. Rent"
                     onChange={this.handleInputChange}
-                    min={this.state.filters["min-rent"]}
+                    min={0}
                 />
               </InputGroup>
             </div>

@@ -13,15 +13,16 @@ class SearchResults extends React.Component {
         let filters = this.props.filters;
         let resultList = houseData.filter((house) => (
             house.duration === filters.duration &&
-                house.rent <= filters.maxRent && house.rent >= filters.minRent &&
-                house.furnishedType === filters.interiorType &&
-                house.houseType === filters.houseType &&
-                house.dutch === filters.dutch &&
-                house.registration === filters.registration &&
-                house.supermarkets === filters.supermarkets &&
-                house.university === filters.uni &&
-                house.couples === filters.couples &&
-                house.pets === filters.pets
+            house.rent <= filters.maxRent &&
+            // house.rent >= filters.minRent &&
+            house.furnishedType === filters.interiorType &&
+            house.houseType === filters.houseType &&
+            house.dutch === filters.dutch &&
+            house.registration === filters.registration &&
+            house.supermarkets === filters.supermarkets &&
+            house.university === filters.uni &&
+            house.couples === filters.couples &&
+            house.pets === filters.pets
         ))
 
         return (
