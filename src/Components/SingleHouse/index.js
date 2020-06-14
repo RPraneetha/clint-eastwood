@@ -1,5 +1,5 @@
 import * as React from 'react';
-import './style.css';
+import './index.css';
 
 class SingleHouse extends React.Component {
   render() {

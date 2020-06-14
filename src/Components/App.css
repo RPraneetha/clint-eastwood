@@ -193,3 +193,7 @@ ol, ul {
     margin-left: 0px;
   }
 }
+
+.scenarioWrapper {
+  padding: 20px;
+}

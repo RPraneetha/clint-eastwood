@@ -34,9 +34,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "react-fa": "^5.0.0",
-    "react-redux": "^7.2.0"
   }
 }

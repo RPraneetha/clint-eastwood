@@ -11,7 +11,7 @@ class SearchBar extends React.Component {
       filters : {
         "duration": 0,
         // "minRent": 0,
-        "maxRent": 0,
+        "maxRent": -1,
         "houseType": null,
         "interiorType": null,
         "supermarkets": false,
@@ -34,6 +34,7 @@ class SearchBar extends React.Component {
   }
 
   formSubmitHandler() {
+
     this.setState({isSubmitted: true})
   }
 
