@@ -1,38 +1,42 @@
 import React from 'react';
 import './App.css';
-// import './Bootstrap/bootstrap.min.css';
-
 import 'bootstrap/dist/css/bootstrap.min.css';
-import SearchResults from "./SearchResults";
-import SearchBar from "./SearchBar";
+import SearchPage from "./SearchPage";
+import { BrowserRouter as Router, Link } from 'react-router-dom';
+// import {  Route } from 'react-router-dom';
+import Iframe from 'react-iframe'
 
-function App() {
-  return (
-    <div className="globalContainer">
-        <div className="dashboard">
-            <div className="bodyWrapper">
-                <div className="contentWrapper">
-                    <div className="dashboardTitle">
-                        <h3>Find Your Perfect House</h3>
-                    </div>
-                    <div className="scenarioWrapper">
-                        <h5>Scenario</h5>
-                        <p>Imagine you are Alice. Your task is to interact with the bot to find a suitable housing for Alice
-                            Here is some info about her
-                            Alice is looking for a place to stay in Delft for at least 1 year.
-                            She is an international student and requires registration in the municipality.
-                            She has a maximum budget of 600 euros and the commute time to the university should be less than 10 minutes by bike.
-                            Further, she prefers a place near the city centre and supermarkets.
-                            She also prefers a studio compared to sharing.</p>
-                    </div>
-                    <div className="selectBarWrapper">
-                        <SearchBar />
+class App extends React.Component {
+
+    render() {
+        return (
+            <div className="globalContainer">
+                <div className="dashboard">
+                    <div className="bodyWrapper">
+                        <Router>
+                            <Link to="/">
+                            <div className="contentWrapper">
+
+                                <Iframe
+                                    // url="https://fs11.formsite.com/V9PQWO/8wbymhd8h7/index.html"
+                                 url="https://fs11.formsite.com/V9PQWO/8wbymhd8h7/fill?id5-1=1&id5-2=1&id5-3=1&id5-4=1&id5-5=1&id5-6=1&id5-7=1&id5-8=1&id5-9=1&id10=YourValue4"
+                                        width="100%"
+                                        height="100%"
+                                        id="myId"
+                                        className="myClassname"
+                                        display="initial"
+                                        position="relative"/>
+                            </div>
+                            </Link>
+                            <Link to={"/search"}>
+                                <SearchPage />
+                            </Link>
+                        </Router>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-  );
+        );
+    }
 }
 
 export default App;
