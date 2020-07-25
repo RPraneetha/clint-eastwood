@@ -146,13 +146,13 @@ ol, ul {
   height: 60px;
 }
 
-.dashboard .dashboardTitle {
+.dashboard .header {
   overflow: hidden;
   background: #0EAAA6;
   color: white;
-  border-top: 5px solid #0D908D;
+  border-top: 20px solid #0D908D;
   text-align: center;
-  padding: 5px;
+  padding: 10px;
 }
 
 .dashboard .bodyWrapper {
@@ -177,8 +177,4 @@ ol, ul {
   .dashboard .contentWrapper {
     margin-left: 0px;
   }
-}
-
-.scenarioWrapper {
-  padding: 20px;
 }

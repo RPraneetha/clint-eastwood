@@ -1,7 +1,7 @@
 import * as React from 'react';
 import './index.css';
 import SingleHouse from '../SingleHouse';
-import { Button, Row } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { FaArrowRight } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 
@@ -50,13 +50,11 @@ class SearchResults extends React.Component {
                     }
                 </div>
                 <div className="proceed-wrapper">
-
                         <Link to="/exitForm">
                             <Button size="lg" className="btn btn-green">
                             Proceed <FaArrowRight className={"FaArrowRight"}/>
                             </Button>
                         </Link>
-
                 </div>
             </div>
         );

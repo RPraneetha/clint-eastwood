@@ -1,0 +1,24 @@
+.attentionCheckWrapper {
+    display: block;
+    padding: 5px 50px;
+}
+
+.attention-check .form-group{
+    font-size: 2rem;
+}
+
+.attention-check .form-label {
+    padding: 5px 0;
+}
+.attention-check .form-control {
+    padding: 5px 0;
+    max-width: 40%;
+}
+
+.attention-check .invalid-feedback {
+    font-size: 50%
+}
+
+.row {
+    justify-content: left;
+}
