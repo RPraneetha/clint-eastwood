@@ -164,7 +164,7 @@ class SearchPage extends React.Component {
                     <h1>Find Your Perfect House</h1>
                 </div>
                 <div className="selectBarWrapper">
-                    <Scenarios scenarioItem={scenarioItem} />
+                    {/*<Scenarios scenarioItem={scenarioItem} />*/}
                     <Form className="search-panel">
                         {
                             this.state.displayFormElements.map((formElement) => {

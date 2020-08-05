@@ -10,7 +10,7 @@ a.card, div.card {
   text-decoration: none;
 }
 
-.figure {
+.modalFigure, .figure {
   background-color: #000;
   width: 100%;
   overflow: hidden;
@@ -23,19 +23,25 @@ a.card, div.card {
   display: block;
   width: 100%;
   opacity: 1;
-}
-
-.figure img {
   transition: transform 0.35s;
   transform: scale(1.15);
 }
 
-a.card:hover img, div.card:hover img {
+.modalFigure img {
+  position: relative;
+  display: block;
+  width: 100%;
+  opacity: 1;
+  transition: transform 0.35s;
+  border-radius: 2px;
+}
+
+.card:hover img, a.card:hover img, div.card:hover img {
   transform: scale(1);
   opacity: 0.8;
 }
 
-.figCaption {
+.modalFigCaption, .figCaption {
   position: absolute;
   z-index: 2;
   top: auto;
@@ -45,48 +51,25 @@ a.card:hover img, div.card:hover img {
   color: #fff;
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 100%);
   filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#80000000', GradientType=0);
-}
-
-.figCaption {
   transition: transform 0.35s;
   transform: translate3d(0, 100%, 0);
 }
 
-.figView {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  opacity: 0;
-  color: #fff;
-  font-size: 40px;
-  line-height: 40px;
-  margin-left: -21px;
-  margin-top: -20px;
-  font-weight: normal;
-  transition: opacity 0.35s, transform 0.35s;
-  transform: scale(3.0);
-}
-
-a.card:hover .figView, div.card:hover .figView {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.figCaption div {
+.modalFigCaption div, .figCaption div {
   float: left;
   font-size: 12px;
   line-height: 12px;
   font-weight: normal;
 }
 
-.carousel-col .figCaption div {
+.carousel-col .figCaption div, .carousel-col .modalFigCaption div {
   float: left;
   font-size: 13px;
   line-height: 14px;
   font-weight: bold;
 }
 
-.figCaption > span {
+.figCaption > span, .modalFigCaption > span {
   float: right;
   font-size: 11px;
   line-height: 12px;
@@ -203,4 +186,25 @@ a.card ul.cardFeat li, div.card ul.cardFeat li {
 }
 a.card ul.cardFeat li span, div.card ul.cardFeat li span {
   color: #999;
+}
+
+.modalTitle {
+  text-align: center;
+  color: #0eaaa6;
+  display: block;
+}
+
+.modal-header {
+  align-items: center
+}
+
+.modalCardAddress {
+  font-size: 25px;
+  font-weight: normal;
+  text-align: center;
+  padding: 10px;
+}
+
+.modal-footer {
+  justify-content: space-between;
 }
