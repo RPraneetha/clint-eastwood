@@ -14,47 +14,47 @@ class SearchResults extends React.Component {
 
     resultList = () => {
         let filters = this.props.filters;
-        // let resultList = [];
 
-        // houseData.map((house, index) => {
-        //     let houseItem;
-        //     houseItem.duration = filters.duration === 0 ? house: filters.duration;
-        // })
-        let resultList = houseData.filter((house) => (
-            house.duration === filters.duration &&
-            house.rent <= filters.maxRent &&
-            // house.rent >= filters.minRent &&
-            house.interiorType === filters.interiorType &&
-            house.houseType === filters.houseType &&
-            house.dutch === filters.dutch &&
-            house.registration === filters.registration &&
-            house.supermarkets === filters.supermarkets &&
-            house.university === filters.uni &&
-            house.couples === filters.couples &&
-            house.pets === filters.pets
-        ))
-        console.log(resultList)
+        Object.entries(filters).forEach(([key, value]) => {
+            if(value === -1) {
+                delete filters[key];
+            }
+        })
+
+        let resultList = houseData.filter(function(house) {
+            let conditionSatisfied = true;
+            for(let key of Object.keys(filters))
+            {
+                if (filters.hasOwnProperty(key)) {
+                    conditionSatisfied = key === "rent" ? house[key] <= filters[key] : house[key] === filters[key];
+                    if (!conditionSatisfied)
+                        break;
+                }
+            }
+            return conditionSatisfied;
+        })
+
         return (
             <div className="resultsList">
                 <div className="row">
-                    {resultList.length != 0 ? resultList.map((data, index) => {
-                        return (
-                            <div className="col-xs-12 col-sm-12 col-md-4 col-lg-4" key={index}>
-                                <SingleHouse data={data} />
-                            </div>
-                        );
-                    }) :
+                    {resultList.length !== 0 ? resultList.map((data, index) => {
+                            return (
+                                <div className="col-xs-12 col-sm-12 col-md-4 col-lg-4" key={index}>
+                                    <SingleHouse data={data} />
+                                </div>
+                            );
+                        }) :
                         <span className="nohouses">
                             <h1>Sorry, there are no houses matching your requirements.</h1>
                         </span>
                     }
                 </div>
                 <div className="proceed-wrapper">
-                        <Link to="/exitForm">
-                            <Button size="lg" className="btn btn-green">
+                    <Link to="/exitForm">
+                        <Button size="lg" className="btn btn-green">
                             Proceed <FaArrowRight className={"FaArrowRight"}/>
-                            </Button>
-                        </Link>
+                        </Button>
+                    </Link>
                 </div>
             </div>
         );
