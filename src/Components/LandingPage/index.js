@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
 import './index.css';
-import { Button, Form} from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { FaArrowRight } from "react-icons/fa";
 import scenariosData from '../../Data/scenarios.json';
 import Scenarios from "../Scenarios";
-import {Link} from "react-router-dom";
-import {FaArrowRight} from "react-icons/fa";
 
 function LandingPage(props) {
     const [validated, setValidated] = useState(false);
     const [errorState, setErrorState] = useState(false);
-    const scenarioItem = scenariosData[0];
+    const [scenario, setScenario] = useState(scenariosData[0]);
     let attentionCheckName;
 
     const handleSubmit = (event) => {
-        if (attentionCheckName.toLowerCase() !== scenarioItem.scenarioName) {
+        if (!attentionCheckName || (attentionCheckName.toLowerCase() !== scenario.scenarioName)) {
             event.preventDefault();
             event.stopPropagation();
             setErrorState(true);
@@ -26,8 +26,11 @@ function LandingPage(props) {
 
     return (
         <div className={"landingPageContainer"}>
+            <div className="header">
+                <h1>Find Your Perfect House</h1>
+            </div>
             <div className={"contentWrapper"}>
-                <Scenarios scenarioItem={scenarioItem}/>
+                <Scenarios scenarioItem={scenario}/>
                 <div className={"attentionCheckWrapper"}>
                     <Form noValidate validated={validated} className={"form-group attention-check"} onSubmit={handleSubmit}>
                         <Form.Group>
@@ -42,13 +45,18 @@ function LandingPage(props) {
                                 <Form.Control.Feedback
                                     type={"invalid"}>
                                     Please enter the correct name.
-                                </Form.Control.Feedback>}
+                                </Form.Control.Feedback>
+                            }
                         </Form.Group>
                         <div className="proceed-wrapper">
-                            <Link to="/search" onClick={handleSubmit}>
-                                <Button type={"submit"} size="lg" className="btn btn-green">
-                                    Proceed <FaArrowRight className={"FaArrowRight"}/>
-                                </Button>
+                            <Link to={{
+                                pathname: "/search",
+                                state: scenario
+                            }}
+                                onClick={handleSubmit}>
+                                    <Button type={"submit"} size="lg" className="btn btn-green">
+                                        Proceed <FaArrowRight className={"FaArrowRight"}/>
+                                    </Button>
                             </Link>
                         </div>
                     </Form>
