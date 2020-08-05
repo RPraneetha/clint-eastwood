@@ -1,9 +1,6 @@
 import * as React from 'react';
 import './index.css';
 import SingleHouse from '../SingleHouse';
-import { Button } from "react-bootstrap";
-import { FaArrowRight } from "react-icons/fa";
-import { Link } from 'react-router-dom';
 
 const houseData = require('../../Data/houseData.json');
 
@@ -36,11 +33,15 @@ class SearchResults extends React.Component {
 
         return (
             <div className="resultsList">
+                <div className="nohouses">
+                    <h2>Select A House To Proceed!</h2>
+                    <span>Hover over the houses to see additional information</span>
+                </div>
                 <div className="row">
-                    {resultList.length !== 0 ? resultList.map((data, index) => {
+                    {resultList.length !== 0 ? resultList.map((house, index) => {
                             return (
                                 <div className="col-xs-12 col-sm-12 col-md-4 col-lg-4" key={index}>
-                                    <SingleHouse data={data} />
+                                    <SingleHouse house={house} />
                                 </div>
                             );
                         }) :
@@ -48,13 +49,6 @@ class SearchResults extends React.Component {
                             <h1>Sorry, there are no houses matching your requirements.</h1>
                         </span>
                     }
-                </div>
-                <div className="proceed-wrapper">
-                    <Link to="/exitForm">
-                        <Button size="lg" className="btn btn-green">
-                            Proceed <FaArrowRight className={"FaArrowRight"}/>
-                        </Button>
-                    </Link>
                 </div>
             </div>
         );
