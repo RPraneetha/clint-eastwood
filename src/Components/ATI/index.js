@@ -2,6 +2,8 @@ import * as React from 'react';
 import './index.css';
 
 class ATI extends React.Component {
+
+    currentTime = new Date().toLocaleDateString();
     render() {
         return (
             <div>
@@ -17,7 +19,7 @@ class ATI extends React.Component {
                     </span>
                     <form id="survey-form" action="https://send.pageclip.co/ssJ875Dr8gsBFokkWaOxD7zvXK70aOkU/ati-gui-task" className="pageclip-form" method="post">
                         <input type="hidden" id="workerId" className="workerId" name="workerId" defaultValue="default-id" />
-                        <input type="hidden" id="startTime" className="startTime" name="startTime" defaultValue />
+                        <input type="hidden" id="startTime" className="startTime" name="startTime" defaultValue={this.currentTime} />
                         <table style={{ width: '100%' }}>
                             <thead>
                                 <tr>
