@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './index.css';
 import { Button, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -7,13 +7,33 @@ import scenariosData from '../../Data/scenarios.json';
 import Scenarios from "../Scenarios";
 
 function LandingPage(props) {
+    let attentionCheckName;
     const [validated, setValidated] = useState(false);
     const [errorState, setErrorState] = useState(false);
-    const [scenario, setScenario] = useState(scenariosData[0]);
-    let attentionCheckName;
+    const [data, setData] = useState({});
+    const [loading, setLoading] = useState(true)
+
+    const sid = Math.floor(Math.random() * 3) + 1;
+    const PROXY_URL = `https://cors-anywhere.herokuapp.com/`;
+    const URL = PROXY_URL + `https://cryptic-headland-35693.herokuapp.com/getScenarioAndHouse?sid=${sid}`;
+
+    useEffect( () => {
+        async function fetchScenario() {
+            try {
+                let response = await fetch(URL, {method: "GET"});
+                response = await response.json();
+                setData(response);
+                setLoading(false);
+            }
+            catch(e) {
+                console.log(e)
+            }
+        }
+        fetchScenario()
+    }, []);
 
     const handleSubmit = (event) => {
-        if (!attentionCheckName || (attentionCheckName.toLowerCase() !== scenario.scenarioName)) {
+        if (!attentionCheckName || (attentionCheckName.toLowerCase() !== data.scenarioName.toLowerCase())) {
             event.preventDefault();
             event.stopPropagation();
             setErrorState(true);
@@ -25,12 +45,13 @@ function LandingPage(props) {
     };
 
     return (
+        !loading &&
         <div className={"landingPageContainer"}>
             <div className="header">
                 <h1>Find Your Perfect House</h1>
             </div>
             <div className={"contentWrapper"}>
-                <Scenarios scenarioItem={scenario}/>
+                <Scenarios scenarioItem={data.description}/>
                 <div className={"attentionCheckWrapper"}>
                     <Form noValidate validated={validated} className={"form-group attention-check"} onSubmit={handleSubmit}>
                         <Form.Group>
@@ -51,7 +72,7 @@ function LandingPage(props) {
                         <div className="proceed-wrapper">
                             <Link to={{
                                 pathname: "/search",
-                                state: scenario
+                                state: data
                             }}
                                 onClick={handleSubmit}>
                                     <Button type={"submit"} size="lg" className="btn btn-green">

@@ -56,7 +56,8 @@ class SearchPage extends React.Component {
     }
 
     render() {
-        const scenarioItem = this.props.history.location.state;
+        const data = this.props.history.location.state;
+        const scenarioItem = data.description;
 
         const formElements = [
             <Form.Group controlId="duration" className={"form-control-select"}>
@@ -192,7 +193,7 @@ class SearchPage extends React.Component {
                 </div>
                 <div className="searchPageWrapper">
                     {this.state.isSubmitted ? (
-                            <SearchResults filters={this.state.filters}/>
+                            <SearchResults filters={this.state.filters} data={data}/>
                         )
                         :
                         (

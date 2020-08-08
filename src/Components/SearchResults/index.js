@@ -11,6 +11,7 @@ class SearchResults extends React.Component {
 
     resultList = () => {
         let filters = this.props.filters;
+        let data = this.props.data;
 
         Object.entries(filters).forEach(([key, value]) => {
             if(value === -1) {
