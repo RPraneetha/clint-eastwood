@@ -2,9 +2,11 @@ import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import LandingPage from "./LandingPage";
-import {HashRouter as Router, Route} from 'react-router-dom';
+import { HashRouter as Router, Route } from 'react-router-dom';
 import Form from "./Form";
 import SearchPage from "./SearchPage";
+import ResQue from "./ResQue";
+import ATI from "./ATI";
 
 class App extends React.Component {
     render() {
@@ -15,10 +17,10 @@ class App extends React.Component {
                 <div className="dashboard">
                     <div className="bodyWrapper">
                         <Router>
-                            {/*<Route exact path="/" render={(props) => <Form {...props} url={entryFormUrl} />} />*/}
+                            <Route exact path="/entryForm" component={ATI} />
                             <Route exact path="/" component={LandingPage} />
                             <Route exact path="/search" component={SearchPage} />
-                            {/*<Route exact path="/exitForm" render={(props) => <Form {...props} url={exitFormUrl} />}  />*/}
+                            <Route exact path="/exitForm" component={ResQue} />
                         </Router>
                     </div>
                 </div>
