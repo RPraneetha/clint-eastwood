@@ -1,0 +1,50 @@
+span.section {
+    color: #FFFFFF;
+    padding: 2px;
+    width: 100%;
+}
+
+th.fr-highlighted {
+    background: #888888;
+    font-size: 20px;
+    height: 50px;
+}
+
+td.fr-thick {
+    background: #DDDDDD
+}
+
+.addedFeedback {
+    width: 30%;
+    height: 70px;
+    vertical-align: top;
+}
+
+.pageclip-form__submit {
+    background: #2196F3;
+    width: 20%;
+    padding: 15px;
+    margin: 0 auto;
+    display: block;
+    font-family: sans-serif;
+    font-size: 13pt;
+}
+
+div {
+    font-family: Verdana, Geneva, sans-serif;
+}
+
+td {
+    font-size: 10pt;
+    border-bottom: 1px solid black;
+    padding: 5px;
+}
+
+    td.required:after {
+        color: red;
+        content: " *";
+    }
+
+.parentDiv {
+    overflow-y: scroll;
+}
