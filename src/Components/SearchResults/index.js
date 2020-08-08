@@ -1,65 +1,122 @@
 import * as React from 'react';
-import './index.css';
+import equal from 'fast-deep-equal'
 import SingleHouse from '../SingleHouse';
+import Loader from "../Loader";
+import './index.css';
 
-const houseData = require('../../Data/houseData.json');
+const PROXY_URL = "https://cors-anywhere.herokuapp.com/";
+const CONSTRAINTS_URL = PROXY_URL + "https://cryptic-headland-35693.herokuapp.com/checkConstraints";
 
 class SearchResults extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            house: {},
+            constraintsCheck: false,
+            isLoading: true
+        }
     }
 
-    resultList = () => {
-        let filters = this.props.filters;
-        let data = this.props.data;
-
-        Object.entries(filters).forEach(([key, value]) => {
-            if(value === -1) {
-                delete filters[key];
-            }
-        })
-
-        let resultList = houseData.filter(function(house) {
-            let conditionSatisfied = true;
-            for(let key of Object.keys(filters))
-            {
-                if (filters.hasOwnProperty(key)) {
-                    conditionSatisfied = key === "rent" ? house[key] <= filters[key] : house[key] === filters[key];
-                    if (!conditionSatisfied)
-                        break;
-                }
-            }
-            return conditionSatisfied;
-        })
-
-        return (
-            <div className="resultsList">
-                <div className="nohouses">
-                    <h2>Select A House To Proceed!</h2>
-                    <span>Hover over the houses to see additional information</span>
-                </div>
-                <div className="row">
-                    {resultList.length !== 0 ? resultList.map((house, index) => {
-                            return (
-                                <div className="col-xs-12 col-sm-12 col-md-4 col-lg-4" key={index}>
-                                    <SingleHouse house={house} />
-                                </div>
-                            );
-                        }) :
-                        <span className="nohouses">
-                            <h1>Sorry, there are no houses matching your requirements.</h1>
-                        </span>
-                    }
-                </div>
-            </div>
-        );
+    componentDidMount() {
+        this.getHouse();
     }
+
+    componentDidUpdate(prevProps) {
+        if(!equal(this.props.filters, prevProps.filters)) {
+            this.setState({isLoading: true})
+            this.getHouse();
+        }
+    }
+
+    async getHouse() {
+        await this.checkConstraints();
+        console.log(this.state.constraintsCheck)
+        if(this.state.constraintsCheck === "true") {
+            this.setState({house: this.props.data.correctHouse})
+            this.setState({isLoading: false})
+            console.log("This house is correct")
+        }
+        else {
+            await this.getIncorrectHouses();
+            console.log(this.state.house)
+            console.log("This house is incorrect")
+        }
+    }
+
+    async checkConstraints() {
+        const filters = this.props.filters;
+        const requestBody = JSON.stringify({
+            "inputConstraints": {
+                "duration": {
+                    "value": parseInt(filters.duration),
+                    "unit": "mo"
+                },
+                "maxRent": parseInt(filters.maxRent),
+                "typeOfAccomodation": filters.houseType,
+                "nearSupermarkets": filters.supermarkets,
+                "municipalityRegistration": filters.registration,
+                "commuteTime": parseInt(filters.maxCommuteTime)
+            },
+            "sid": this.props.data.id
+        });
+        await fetch(CONSTRAINTS_URL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-Requested-With": "XMLHttpRequest"
+                },
+                body: requestBody
+            })
+            .then(response => response.text())
+            .then((response) => {
+                this.setState({constraintsCheck: response})
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
+
+    async getIncorrectHouses() {
+        const INCORRECTHOUSES_URL = PROXY_URL + `https://cryptic-headland-35693.herokuapp.com/getIncorrectHouses?hid=${this.props.data.correctHouse["_id"]}`;
+        await fetch(INCORRECTHOUSES_URL, { method: "GET" })
+            .then(response => response.json())
+            .then ((response) => {
+                const incorrectHouseNumber = Math.floor(Math.random() * response.length + 1);
+                this.setState({house: response[incorrectHouseNumber]});
+                this.setState({isLoading: false});
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
+
     render() {
+
         return (
+            this.state.isLoading ?
+                <Loader />
+                :
             <div className="searchForm">
                 <div className="resultTable">
                     <div className="resultBody">
-                        {this.resultList()}
+                        <div className="resultsList">
+                            <div className="nohouses">
+                                <h2>Select A House To Proceed!</h2>
+                                <span>Click on the house to see additional information</span>
+                            </div>
+                            <div className="row">
+                                {this.state.house ? (
+                                        <div className="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                            <SingleHouse house={this.state.house} />
+                                        </div>
+                                    )
+                                    :
+                                    <span className="nohouses">
+                            <h1>Sorry, there are no houses matching your requirements.</h1>
+                        </span>
+                                }
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

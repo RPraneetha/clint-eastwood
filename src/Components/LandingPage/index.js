@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import './index.css';
 import { Button, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa";
-import scenariosData from '../../Data/scenarios.json';
+import Loader from "../Loader";
 import Scenarios from "../Scenarios";
+import './index.css';
 
-function LandingPage(props) {
+function LandingPage() {
     let attentionCheckName;
     const [validated, setValidated] = useState(false);
     const [errorState, setErrorState] = useState(false);
@@ -17,19 +17,23 @@ function LandingPage(props) {
     const PROXY_URL = `https://cors-anywhere.herokuapp.com/`;
     const URL = PROXY_URL + `https://cryptic-headland-35693.herokuapp.com/getScenarioAndHouse?sid=${sid}`;
 
-    useEffect( () => {
-        async function fetchScenario() {
-            try {
-                let response = await fetch(URL, {method: "GET"});
-                response = await response.json();
-                setData(response);
-                setLoading(false);
-            }
-            catch(e) {
-                console.log(e)
-            }
+    async function getScenario() {
+        try {
+            let response = await fetch(URL, {method: "GET",
+                headers: {
+                "Access-Control-Allow-Origin": "*"
+                }});
+            response = await response.json();
+            setData(response);
+            setLoading(false);
         }
-        fetchScenario()
+        catch(e) {
+            console.log(e)
+        }
+    }
+
+    useEffect( () => {
+        getScenario()
     }, []);
 
     const handleSubmit = (event) => {
@@ -45,7 +49,9 @@ function LandingPage(props) {
     };
 
     return (
-        !loading &&
+        loading ?
+        <Loader />
+        :
         <div className={"landingPageContainer"}>
             <div className="header">
                 <h1>Find Your Perfect House</h1>

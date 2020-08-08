@@ -208,3 +208,7 @@ a.card ul.cardFeat li span, div.card ul.cardFeat li span {
 .modal-footer {
   justify-content: space-between;
 }
+
+.card-text {
+  text-align: center;
+}
