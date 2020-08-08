@@ -4,7 +4,6 @@ import { Card } from "react-bootstrap";
 
 class Scenarios extends React.Component {
     render() {
-        const scenarioItem = this.props.scenarioItem;
 
         return (
             <div className={"scenarioWrapper"}>
@@ -13,7 +12,7 @@ class Scenarios extends React.Component {
                         Scenario
                     </Card.Header>
                     <Card.Text>
-                        {scenarioItem.scenario}
+                        {this.props.scenarioItem}
                     </Card.Text>
                 </Card>
             </div>
