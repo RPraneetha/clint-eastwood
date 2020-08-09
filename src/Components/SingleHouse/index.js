@@ -2,20 +2,41 @@ import * as React from 'react';
 import './index.css';
 import { Button, Modal} from "react-bootstrap";
 import {Link} from "react-router-dom";
+import WorkerIdContext from "../WorkerIdContext";
 
 class SingleHouse extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            showModal: false
+            showModal: false,
+            logs: []
         }
         this.handleClose = this.handleClose.bind(this);
         this.handleShow = this.handleShow.bind(this);
     }
 
-    handleClose = () => this.setState({showModal: false});
-    handleShow = () => this.setState({showModal: true});
+    componentDidMount() {
+        this.setState({logs: this.props.logs})
+    }
+
+    handleClose = () => {
+        let log = [new Date() + ": House " + this.props.house.description + " with House Id " + this.props.house["_id"]  + " closed by WorkerId: " + this.context];
+        this.setState({ logs: this.state.logs.concat(log) });
+        this.setState({showModal: false});
+    }
+
+    handleShow = () => {
+        let log = [new Date() + ": House " + this.props.house.description + " with House Id " + this.props.house["_id"]  + " clicked by WorkerId: " + this.context];
+        this.setState({ logs: this.state.logs.concat(log) });
+        this.setState({showModal: true});
+    }
+
+    handleSubmit = () => {
+        let log = [new Date() + ": House " + this.props.house.description + " with House Id " + this.props.house["_id"]  + " selected by WorkerId: " + this.context];
+        this.setState({ logs: this.state.logs.concat(log) });
+        this.props.setLogs(this.state.logs);
+    }
 
     render() {
         let house = this.props.house;
@@ -51,7 +72,7 @@ class SingleHouse extends React.Component {
                             Back
                         </Button>
                             <Link to="/exitForm">
-                                <Button variant="primary" onClick={this.handleClose}>
+                                <Button variant="primary" onClick={this.handleSubmit}>
                                     Confirm Your Choice
                                 </Button>
                             </Link>
@@ -61,5 +82,7 @@ class SingleHouse extends React.Component {
         );
     }
 }
+
+SingleHouse.contextType = WorkerIdContext;
 
 export default SingleHouse;

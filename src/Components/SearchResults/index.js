@@ -3,6 +3,7 @@ import equal from 'fast-deep-equal'
 import SingleHouse from '../SingleHouse';
 import Loader from "../Loader";
 import './index.css';
+import WorkerIdContext from "../WorkerIdContext";
 
 const PROXY_URL = "https://cors-anywhere.herokuapp.com/";
 const CONSTRAINTS_URL = PROXY_URL + "https://cryptic-headland-35693.herokuapp.com/checkConstraints";
@@ -13,34 +14,47 @@ class SearchResults extends React.Component {
         this.state = {
             house: {},
             constraintsCheck: false,
-            isLoading: true
+            isLoading: true,
+            logs: []
         }
     }
 
     componentDidMount() {
         this.getHouse();
+        let log = [new Date() + ": Search Result displayed to WorkerId: " + this.context];
+        this.setState({ logs: this.state.logs.concat(log) });
     }
 
     componentDidUpdate(prevProps) {
+        let log = [new Date() + ": Search Filters have been updated by WorkerId: " + this.context];
         if(!equal(this.props.filters, prevProps.filters)) {
             this.setState({isLoading: true})
             this.getHouse();
+            this.setState({ logs: this.state.logs.concat(log) });
         }
     }
 
+    setIntermediateLogs = (newLogs) => {
+        let logs = this.state.logs;
+        this.setState({logs: logs.concat(newLogs)});
+        this.props.setLogs(this.state.logs);
+    }
+
     async getHouse() {
+        let log = [new Date() + ": Search Constraints are being checked for by WorkerId: " + this.context];
         await this.checkConstraints();
-        // console.log(this.state.constraintsCheck)
+        log.push(new Date() + ": Search Constraints are " + this.state.constraintsCheck + " for WorkerId: " + this.context);
+
         if(this.state.constraintsCheck === "true") {
             this.setState({house: this.props.data.correctHouse})
             this.setState({isLoading: false})
-            // console.log("This house is correct")
+            log.push(new Date() + ": Correct House with houseId " + this.props.data.correctHouse["_id"] + " given to WorkerId: " + this.context);
         }
         else {
             await this.getIncorrectHouses();
-            console.log(this.state.house)
-            // console.log("This house is incorrect")
+            log.push(new Date() + ": Incorrect House with houseId " + this.state.house["_id"] + " given to WorkerId: " + this.context);
         }
+        this.setState({ logs: this.state.logs.concat(log) });
     }
 
     async checkConstraints() {
@@ -91,7 +105,6 @@ class SearchResults extends React.Component {
     }
 
     render() {
-
         return (
             this.state.isLoading ?
                 <Loader />
@@ -107,7 +120,7 @@ class SearchResults extends React.Component {
                             <div className="row">
                                 {this.state.house ? (
                                         <div className="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-                                            <SingleHouse house={this.state.house} />
+                                            <SingleHouse house={this.state.house} logs={this.state.logs} setLogs={this.setIntermediateLogs}/>
                                         </div>
                                     )
                                     :
@@ -123,5 +136,7 @@ class SearchResults extends React.Component {
         );
     }
 }
+
+SearchResults.contextType = WorkerIdContext;
 
 export default SearchResults;

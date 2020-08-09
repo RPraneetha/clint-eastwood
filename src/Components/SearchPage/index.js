@@ -4,6 +4,7 @@ import { Button, Col, InputGroup, Form, FormControl, Row } from "react-bootstrap
 import SearchResults from "../SearchResults";
 import Scenarios from "../Scenarios";
 import './index.css';
+import WorkerIdContext from "../WorkerIdContext";
 
 class SearchPage extends React.Component {
     constructor(props) {
@@ -22,7 +23,8 @@ class SearchPage extends React.Component {
                 </Form.Group>
             ],
             formElementIndex: 0,
-            isSubmitted: false
+            isSubmitted: false,
+            logs: []
         }
         this.filters = {
             "duration": -1,
@@ -32,25 +34,44 @@ class SearchPage extends React.Component {
             "maxCommuteTime": -1,
             "registration": false
         }
+        this.setLogs = this.setLogs.bind(this)
+    }
+
+    componentDidMount() {
+        let log = [new Date() + ": Search Page started by WorkerId: " + this.context];
+        this.setState({ logs: this.state.logs.concat(log) });
+    }
+
+    setLogs = newLogs => {
+        let logs = this.state.logs;
+        this.setState({logs: logs.concat(newLogs)})
+        this.props.callbackFromParents(this.state.logs);
     }
 
     handleInputChange = (event) => {
         const target = event.target;
-        this.filters[target.id] = target.type === "checkbox" ? target.checked : target.value;
-        this.setState({isSubmitted: false}) //When user comes back to the search after submitting, state needs to be reversed
+        let value = target.type === "checkbox" ? target.checked : target.value;
+        let logs = this.state.logs;
+        this.filters[target.id] = value;
+        logs.push(new Date() + ": " + target.id + " set to " + value + " on Search Page started by WorkerId: " + this.context);
+        this.setState({logs, isSubmitted: false}) //When user comes back to the search after submitting, state needs to be reversed
     }
 
     formSubmitHandler = () => {
-        this.setState({filters: this.filters})
-        this.setState({isSubmitted: true})
+        let log = [new Date() + ": Form on Search Page submitted by WorkerId: " + this.context];
+        this.setState({logs: this.state.logs.concat(log), filters: this.filters, isSubmitted: true})
     }
 
     displayNewElement = (formElement) => {
+        let log = [new Date() + ": New Element on Search Page displayed by WorkerId: " + this.context];
         let formElements = this.state.displayFormElements;
         formElements.push(formElement)
-        this.setState({displayFormElements: formElements});
-        this.setState({formElementIndex: this.state.formElementIndex + 1})
-        this.setState({isSubmitted: false})
+        this.setState({
+            logs: this.state.logs.concat(log),
+            displayFormElements: formElements,
+            formElementIndex: this.state.formElementIndex + 1,
+            isSubmitted: false
+        });
     }
 
     render() {
@@ -137,7 +158,7 @@ class SearchPage extends React.Component {
                             {
                                 this.state.formElementIndex <= formElements.length - 1 &&
                                 <Col>
-                                    <Button id={"add"} size={"md"} onClick={
+                                    <Button className={"search"} id={"add"} size={"md"} onClick={
                                         () => this.displayNewElement(formElements[this.state.formElementIndex])
                                     }>
                                         Add more constraints
@@ -154,7 +175,7 @@ class SearchPage extends React.Component {
                 </div>
                 <div className="searchPageWrapper">
                     {this.state.isSubmitted ? (
-                            <SearchResults filters={this.state.filters} data={data}/>
+                            <SearchResults filters={this.state.filters} data={data} logs={this.state.logs} setLogs={this.setLogs}/>
                         )
                         :
                         (
@@ -171,5 +192,7 @@ class SearchPage extends React.Component {
         );
     }
 }
+
+SearchPage.contextType = WorkerIdContext;
 
 export default SearchPage;

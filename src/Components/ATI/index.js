@@ -1,10 +1,25 @@
 import * as React from 'react';
 import {Link} from "react-router-dom";
 import './index.css';
+import WorkerIdContext from "../WorkerIdContext";
 
 class ATI extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            logs: []
+        }
+    }
 
-    currentTime = new Date().toLocaleDateString();
+    componentDidMount() {
+        let log = [new Date() + ": ATI survey started by WorkerId: " + this.context];
+        this.setState({ logs: this.state.logs.concat(log) });
+    }
+
+    componentWillUnmount() {
+        this.props.callbackFromParents(this.state.logs);
+    }
+
     render() {
         return (
             <div>
@@ -129,7 +144,7 @@ class ATI extends React.Component {
                         <Link to={{
                             pathname: "/land"
                         }}>
-                            <button type="submit" className="pageclip-form__submit" style={{ background: '#0EAAA6', width: '20%', padding: '5px', margin: '0 auto 20px auto', display: 'block' }}>
+                            <button type="submit" className="pageclip-form__submit">
                                 <span style={{ color: '#FFFFFF' }}>Submit Response</span>
                             </button>
                         </Link>
@@ -139,4 +154,7 @@ class ATI extends React.Component {
         );
     }
 }
+
+ATI.contextType = WorkerIdContext;
+
 export default ATI;

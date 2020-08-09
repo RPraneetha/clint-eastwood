@@ -17,17 +17,17 @@
 }
 
 .btn-primary {
-  border-radius: 5px;
+  border-radius: 5px !important;
   color: #fff;
-  background-color: #0eaaa6;
-  border-color: #0eaaa6;
+  background-color: #0eaaa6 !important;
+  border-color: #0eaaa6 !important;
   padding: 5px 15px;
 }
 
-.btn-primary:hover {
+.btn-primary-search:hover {
   color: #fff;
-  background-color: #068b85;
-  border-color: #068b85;
+  background-color: #068b85 !important;
+  border-color: #068b85 !important;
 }
 
 .form-group-price {
