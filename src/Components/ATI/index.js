@@ -1,10 +1,15 @@
 import * as React from 'react';
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import './index.css';
 
 class ATI extends React.Component {
 
-    currentTime = new Date().toLocaleDateString();
+    currentTime = new Date();
+
+    navigate = () => {
+        this.props.history.push('/land');
+    }
+
     render() {
         return (
             <div>
@@ -18,7 +23,7 @@ class ATI extends React.Component {
                             This survey is used to understand how well you are acquainted with web interfaces. Some examples of web&nbsp; interfaces are housing websites. This survey is based on the ATI Scale which measures the user's affinity towards using certain technological systems.
                         </p>
                     </span>
-                    <form id="survey-form" action="https://send.pageclip.co/ssJ875Dr8gsBFokkWaOxD7zvXK70aOkU/ati-gui-task" className="pageclip-form" method="post">
+                    <form id="survey-form" action="https://send.pageclip.co/ssJ875Dr8gsBFokkWaOxD7zvXK70aOkU/ati-gui-task" className="pageclip-form" method="post" onSubmit={this.navigate}>
                         <input type="hidden" id="workerId" className="workerId" name="workerId" defaultValue="default-id" />
                         <input type="hidden" id="startTime" className="startTime" name="startTime" defaultValue={this.currentTime} />
                         <table style={{ width: '100%' }}>
@@ -124,18 +129,14 @@ class ATI extends React.Component {
                         </table>
                         <br /><hr />
                         <label style={{ fontSize: '14px' }}>Any Comments Before We Start?</label><br />
-                        <input className="addedFeedback" type="textarea" name="addedFeedback" wrap={"soft"}/>
+                        <input className="addedFeedback" type="textarea" name="addedFeedback" wrap={"soft"} />
                         <br /><hr />
-                        <Link to={{
-                            pathname: "/land"
-                        }}>
-                            <button type="submit" className="pageclip-form__submit" style={{ background: '#0EAAA6', width: '20%', padding: '5px', margin: '0 auto 20px auto', display: 'block' }}>
-                                <span style={{ color: '#FFFFFF' }}>Submit Response</span>
-                            </button>
-                        </Link>
+                        <button type="submit" className="pageclip-form__submit" onSubmit={this.navigate} style={{ background: '#0EAAA6', width: '20%', padding: '5px', margin: '0 auto 20px auto', display: 'block' }}>
+                            <span style={{ color: '#FFFFFF' }}>Submit Response</span>
+                        </button>
                     </form>
                 </div>
-            </div>
+            </div >
         );
     }
 }

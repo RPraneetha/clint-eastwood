@@ -3,7 +3,7 @@ import './index.css';
 
 class ResQue extends React.Component {
 
-    currentTime = new Date().toLocaleDateString();
+    currentTime = new Date();
     render() {
         return (
             <div>
