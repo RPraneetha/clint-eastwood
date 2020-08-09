@@ -30,16 +30,16 @@ class SearchResults extends React.Component {
 
     async getHouse() {
         await this.checkConstraints();
-        console.log(this.state.constraintsCheck)
+        // console.log(this.state.constraintsCheck)
         if(this.state.constraintsCheck === "true") {
             this.setState({house: this.props.data.correctHouse})
             this.setState({isLoading: false})
-            console.log("This house is correct")
+            // console.log("This house is correct")
         }
         else {
             await this.getIncorrectHouses();
             console.log(this.state.house)
-            console.log("This house is incorrect")
+            // console.log("This house is incorrect")
         }
     }
 
@@ -81,7 +81,7 @@ class SearchResults extends React.Component {
         await fetch(INCORRECTHOUSES_URL, { method: "GET" })
             .then(response => response.json())
             .then ((response) => {
-                const incorrectHouseNumber = Math.floor(Math.random() * response.length + 1);
+                const incorrectHouseNumber = Math.floor(Math.random() * response.length);
                 this.setState({house: response[incorrectHouseNumber]});
                 this.setState({isLoading: false});
             })
