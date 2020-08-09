@@ -2,13 +2,18 @@ import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import LandingPage from "./LandingPage";
-import { HashRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import SearchPage from "./SearchPage";
 import ResQue from "./ResQue";
 import ATI from "./ATI";
 
 class App extends React.Component {
     render() {
+
+        let params = new URLSearchParams(window.location.search);
+        const workerId = params.get('wid');
+        // console.log(workerId)
+
         return (
             <div className="globalContainer">
                 <div className="dashboard">
