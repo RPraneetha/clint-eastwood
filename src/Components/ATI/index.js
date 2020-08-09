@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {Link} from "react-router-dom";
 import './index.css';
 
 class ATI extends React.Component {
@@ -8,14 +9,14 @@ class ATI extends React.Component {
         return (
             <div>
                 <link rel="stylesheet" href="https://s.pageclip.co/v1/pageclip.css" media="screen" />
-                <div className="survey" style={{ margin: 'auto', width: '50%' }}>
-                    <div className="header" style={{ margin: 'auto', textAlign: 'center', background: '#2196F3', height: '120px' }}>
+                <div className="survey" style={{ margin: 'auto', width: '55%' }}>
+                    <div className="header-form" style={{ margin: 'auto', textAlign: 'center', background: '#0EAAA6', padding: '25px' }}>
                         <span style={{ display: 'inline-block', verticalAlign: 'middle', margin: 'auto' }}><h2 style={{ color: '#FFFFFF', fontSize: '18pt', fontFamily: 'sans-serif', verticalAlign: 'middle', display: 'inline-block' }}>How well are you acquainted with Web Interfaces?</h2></span>
                     </div>
                     <span>
-                        <p>
+                        <p className={"survey-subheading"}>
                             This survey is used to understand how well you are acquainted with web interfaces. Some examples of web&nbsp; interfaces are housing websites. This survey is based on the ATI Scale which measures the user's affinity towards using certain technological systems.
-            </p>
+                        </p>
                     </span>
                     <form id="survey-form" action="https://send.pageclip.co/ssJ875Dr8gsBFokkWaOxD7zvXK70aOkU/ati-gui-task" className="pageclip-form" method="post">
                         <input type="hidden" id="workerId" className="workerId" name="workerId" defaultValue="default-id" />
@@ -23,7 +24,7 @@ class ATI extends React.Component {
                         <table style={{ width: '100%' }}>
                             <thead>
                                 <tr>
-                                    <th className="fr-highlighted" colSpan={6} style={{ verticalAlign: 'middle' }}>
+                                    <th className="fr-highlighted" colSpan={8} style={{ verticalAlign: 'middle' }}>
                                         <div style={{ textAlign: 'center' }}><strong><span style={{ fontFamily: 'Verdana, Geneva, sans-serif', fontSize: '16px' }}>Please indicate the degree to which you agree/disagree with the following statements.</span></strong></div>
                                     </th>
                                 </tr>
@@ -84,7 +85,7 @@ class ATI extends React.Component {
                                     <td style={{ width: '10%', textAlign: 'center' }}><input type="radio" id="1-5-6" name="1-5" defaultValue={6} required /><br /></td>
                                 </tr>
                                 <tr>
-                                    <td className="required" style={{ width: '40%', textAlign: 'justify' }}>It is enough for me that a web interface works; I don’t care how or why.</td>
+                                    <td className="required" style={{ width: '40%', textAlign: 'justify' }}>It is enough for me that a web interface works; I don't care how or why.</td>
                                     <td style={{ width: '10%', textAlign: 'center' }}><input type="radio" id="1-6-1" name="1-6" defaultValue={1} required /><br /></td>
                                     <td style={{ width: '10%', textAlign: 'center' }}><input type="radio" id="1-6-2" name="1-6" defaultValue={2} required /><br /></td>
                                     <td style={{ width: '10%', textAlign: 'center' }}><input type="radio" id="1-6-3" name="1-6" defaultValue={3} required /><br /></td>
@@ -123,11 +124,15 @@ class ATI extends React.Component {
                         </table>
                         <br /><hr />
                         <label style={{ fontSize: '14px' }}>Any Comments Before We Start?</label><br />
-                        <input className="addedFeedback" type="textarea" name="addedFeedback" />
+                        <input className="addedFeedback" type="textarea" name="addedFeedback" wrap={"soft"}/>
                         <br /><hr />
-                        <button type="submit" className="pageclip-form__submit" style={{ background: '#2196F3', width: '20%', padding: '10px', margin: '0 auto', display: 'block' }}>
-                            <span style={{ color: '#FFFFFF' }}>Submit Response</span>
-                        </button>
+                        <Link to={{
+                            pathname: "/land"
+                        }}>
+                            <button type="submit" className="pageclip-form__submit" style={{ background: '#0EAAA6', width: '20%', padding: '5px', margin: '0 auto 20px auto', display: 'block' }}>
+                                <span style={{ color: '#FFFFFF' }}>Submit Response</span>
+                            </button>
+                        </Link>
                     </form>
                 </div>
             </div>

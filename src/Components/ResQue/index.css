@@ -21,7 +21,7 @@ td.fr-thick {
 }
 
 .pageclip-form__submit {
-    background: #2196F3;
+    background: #0EAAA6;
     width: 20%;
     padding: 15px;
     margin: 0 auto;
@@ -40,10 +40,10 @@ td {
     padding: 5px;
 }
 
-    td.required:after {
-        color: red;
-        content: " *";
-    }
+td.required:after {
+    color: red;
+    content: " *";
+}
 
 .parentDiv {
     overflow-y: scroll;

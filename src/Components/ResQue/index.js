@@ -8,8 +8,8 @@ class ResQue extends React.Component {
         return (
             <div>
                 <link rel="stylesheet" href="https://s.pageclip.co/v1/pageclip.css" media="screen" />
-                <div className="survey" style={{ margin: 'auto', width: '50%' }}>
-                    <div className="header" style={{ margin: 'auto', textAlign: 'center', background: '#2196F3', height: '120px' }}>
+                <div className="survey" style={{ margin: 'auto', width: '55%' }}>
+                    <div className="header-form" style={{ margin: 'auto', textAlign: 'center', background: '#0EAAA6', padding: '25px' }}>
                         <span style={{ display: 'inline-block', verticalAlign: 'middle', margin: 'auto' }}><h2 style={{ color: '#FFFFFF', fontSize: '20pt', fontFamily: 'sans-serif', verticalAlign: 'middle' }}>Tell Us What You Think Of The System</h2></span>
                     </div>
                     <form id="survey-form" action="https://send.pageclip.co/ssJ875Dr8gsBFokkWaOxD7zvXK70aOkU/exit-survey-form-resque" className="pageclip-form" method="post">
@@ -411,7 +411,7 @@ class ResQue extends React.Component {
                         <label style={{ fontSize: '14px' }}>Any Additional Comments?</label><br />
                         <input className="addedFeedback" type="textarea" name="addedFeedback" />
                         <br /><hr />
-                        <button type="submit" className="pageclip-form__submit">
+                        <button type="submit" className="pageclip-form__submit" style={{padding: '5px', margin: '0 auto 20px auto'}}>
                             <span style={{ color: '#FFFFFF' }}>Submit Response</span>
                         </button>
                     </form>
