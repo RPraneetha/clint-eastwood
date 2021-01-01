@@ -161,7 +161,7 @@ class SearchPage extends React.Component {
                                     <Button className={"search"} id={"add"} size={"md"} onClick={
                                         () => this.displayNewElement(formElements[this.state.formElementIndex])
                                     }>
-                                        Add more constraints
+                                        Add more preferences
                                     </Button>
                                 </Col>
                             }
