@@ -43,6 +43,7 @@ class LandingPage extends React.Component {
                 }});
             response = await response.json();
             this.setState({data: response, loading: false})
+            console.log(response)
         }
         catch(e) {
             console.log(await JSON.stringify(e))
