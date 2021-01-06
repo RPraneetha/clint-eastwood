@@ -14,47 +14,44 @@ class SearchResults extends React.Component {
         this.state = {
             house: {},
             constraintsCheck: false,
-            isLoading: true,
-            logs: []
+            loading: true
         }
     }
 
     componentDidMount() {
-        this.getHouse();
-        let log = [new Date() + ": Search Result displayed to WorkerId: " + this.context];
-        this.setState({ logs: this.state.logs.concat(log) });
+        Promise.all([this.getHouse()]).then(() => {
+            this.setState({
+                loading: false
+            });
+        });
+        window.myLogger.info(new Date() + ": Search Result displayed to WorkerId: " + this.context.workerId);
     }
 
     componentDidUpdate(prevProps) {
-        let log = [new Date() + ": Search Filters have been updated by WorkerId: " + this.context];
         if(!equal(this.props.filters, prevProps.filters)) {
+            window.myLogger.info(new Date() + ": Search Filters have been updated by WorkerId: " + this.context.workerId);
             this.setState({isLoading: true})
-            this.getHouse();
-            this.setState({ logs: this.state.logs.concat(log) });
+            Promise.all([this.getHouse()]).then(() => {
+                this.setState({
+                    loading: false
+                });
+            });
         }
-    }
-
-    setIntermediateLogs = (newLogs) => {
-        let logs = this.state.logs;
-        this.setState({logs: logs.concat(newLogs)});
-        this.props.setLogs(this.state.logs);
     }
 
     async getHouse() {
-        let log = [new Date() + ": Search Constraints are being checked for by WorkerId: " + this.context];
+        window.myLogger.info(new Date() + ": Search Constraints are being checked for by WorkerId: " + this.context.workerId);
         await this.checkConstraints();
-        log.push(new Date() + ": Search Constraints are " + this.state.constraintsCheck + " for WorkerId: " + this.context);
+        window.myLogger.info(new Date() + ": Search Constraints are " + this.state.constraintsCheck + " for WorkerId: " + this.context.workerId);
 
         if(this.state.constraintsCheck === "true") {
-            this.setState({house: this.props.data.correctHouse})
-            this.setState({isLoading: false})
-            log.push(new Date() + ": Correct House with houseId " + this.props.data.correctHouse["_id"] + " given to WorkerId: " + this.context);
+            this.setState({house: this.props.scenario.correctHouse})
+            window.myLogger.info(new Date() + ": Correct House with houseId " + this.props.scenario.correctHouse["_id"] + " given to WorkerId: " + this.context.workerId);
         }
         else {
             await this.getIncorrectHouses();
-            log.push(new Date() + ": Incorrect House with houseId " + this.state.house["_id"] + " given to WorkerId: " + this.context);
+            window.myLogger.info(new Date() + ": Incorrect House with houseId " + this.state.house["_id"] + " given to WorkerId: " + this.context.workerId);
         }
-        this.setState({ logs: this.state.logs.concat(log) });
     }
 
     async checkConstraints() {
@@ -71,7 +68,7 @@ class SearchResults extends React.Component {
                 "municipalityRegistration": filters.registration,
                 "commuteTime": parseInt(filters.maxCommuteTime)
             },
-            "sid": this.props.data.id
+            "sid": this.props.scenario.id
         });
         await fetch(CONSTRAINTS_URL, {
                 method: "POST",
@@ -86,12 +83,12 @@ class SearchResults extends React.Component {
                 this.setState({constraintsCheck: response})
             })
             .catch((error) => {
-                console.log(error)
+                window.myLogger.error(error)
             })
     }
 
     async getIncorrectHouses() {
-        const INCORRECTHOUSES_URL = PROXY_URL + `https://cryptic-headland-35693.herokuapp.com/getIncorrectHouses?hid=${this.props.data.correctHouse["_id"]}`;
+        const INCORRECTHOUSES_URL = PROXY_URL + `https://cryptic-headland-35693.herokuapp.com/getIncorrectHouses?hid=${this.props.scenario.correctHouse["_id"]}`;
         await fetch(INCORRECTHOUSES_URL, { method: "GET" })
             .then(response => response.json())
             .then ((response) => {
@@ -100,13 +97,13 @@ class SearchResults extends React.Component {
                 this.setState({isLoading: false});
             })
             .catch((error) => {
-                console.log(error);
+                window.myLogger.error(error);
             })
     }
 
     render() {
         return (
-            this.state.isLoading ?
+            this.state.loading ?
                 <Loader />
                 :
             <div className="searchForm">
@@ -120,7 +117,7 @@ class SearchResults extends React.Component {
                             <div className="row">
                                 {this.state.house ? (
                                         <div className="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-                                            <SingleHouse house={this.state.house} logs={this.state.logs} setLogs={this.setIntermediateLogs}/>
+                                            <SingleHouse house={this.state.house} />
                                         </div>
                                     )
                                     :

@@ -3,29 +3,14 @@ import './index.css';
 import WorkerIdContext from "../WorkerIdContext";
 
 class ATI extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            logs: []
-        }
-    }
-
-    componentDidMount() {
-        let log = [new Date() + ": ATI survey started by WorkerId: " + this.context];
-        this.setState({ logs: this.state.logs.concat(log) });
-    }
-
-    componentWillUnmount() {
-        this.props.callbackFromParents(this.state.logs);
-    }
-
-    currentTime = new Date();
 
     navigate = () => {
+        this.props.logger.info(new Date() + ": ATI survey submitted by WorkerId: " + this.context.workerId);
         this.props.history.push('/land');
     }
 
     render() {
+        this.props.logger.info(new Date() + ": ATI survey started by WorkerId: " + this.context.workerId);
         return (
             <div>
                 <link rel="stylesheet" href="https://s.pageclip.co/v1/pageclip.css" media="screen" />
@@ -40,7 +25,7 @@ class ATI extends React.Component {
                     </span>
                     <form id="survey-form" action="https://send.pageclip.co/ssJ875Dr8gsBFokkWaOxD7zvXK70aOkU/ati-gui-task" className="pageclip-form" method="post" onSubmit={this.navigate}>
                         <input type="hidden" id="workerId" className="workerId" name="workerId" defaultValue="default-id" />
-                        <input type="hidden" id="startTime" className="startTime" name="startTime" defaultValue={this.currentTime} />
+                        <input type="hidden" id="startTime" className="startTime" name="startTime" defaultValue={new Date()} />
                         <table style={{ width: '100%' }}>
                             <thead>
                                 <tr>

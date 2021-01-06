@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^7.2.1",
     "bootstrap": "^4.5.0",
     "lodash": "^4.17.15",
+    "log4javascript": "^1.4.16",
     "mongoose": "^5.9.27",
     "pageclip": "^1.0.0",
     "react": "^16.13.1",

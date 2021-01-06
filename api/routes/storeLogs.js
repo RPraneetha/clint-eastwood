@@ -32,7 +32,7 @@ if (process.env.NODE_ENV !== 'production') {
     }));
 }
 
-logger.info('Log Server started');
+logger.info('Log Server started at ' + new Date());
 
 router.post('/', function( req, res ) {
     try {
