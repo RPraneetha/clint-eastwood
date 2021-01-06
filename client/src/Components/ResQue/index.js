@@ -2,8 +2,6 @@ import * as React from 'react';
 import './index.css';
 
 class ResQue extends React.Component {
-
-    currentTime = new Date();
     render() {
         return (
             <div>
@@ -15,7 +13,7 @@ class ResQue extends React.Component {
                     <form id="survey-form" action="https://send.pageclip.co/ssJ875Dr8gsBFokkWaOxD7zvXK70aOkU/exit-survey-form-resque" className="pageclip-form" method="post">
                         <input type="hidden" id="workerId" className="workerId" name="workerId" defaultValue="default-id" />
                         <input type="hidden" id="interfaceType" className="interfaceType" name="interfaceType" defaultValue="gui" />
-                        <input type="hidden" id="startTime" className="startTime" name="startTime" defaultValue={this.currentTime} />
+                        <input type="hidden" id="startTime" className="startTime" name="startTime" defaultValue={new Date()} />
                         <table style={{ width: '100%' }}>
                             <thead>
                                 <tr>

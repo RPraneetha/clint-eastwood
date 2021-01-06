@@ -2,7 +2,6 @@ import React from 'react';
 import { Button, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa";
-import { concat } from "lodash";
 import Loader from "../Loader";
 import Scenarios from "../Scenarios";
 import WorkerIdContext from "../WorkerIdContext";
@@ -13,55 +12,49 @@ class LandingPage extends React.Component {
         super(props);
         this.state = {
             attentionCheckName: "",
-            logs: [],
             validated: false,
             errorState: false,
-            data: {},
+            scenario: {},
             loading: true
 
         }
     }
 
     componentDidMount() {
-        this.getScenario();
-        let log = [new Date() + ": Scenario started by WorkerId: " + this.context];
-        this.setState({logs: concat(this.state.logs, log)});
-    }
-
-    componentWillUnmount() {
-        this.props.callbackFromParents(this.state.logs);
+        Promise.all([ this.getScenario() ]).then(() => {
+            this.setState({
+                loading: false
+            });
+        });
+        window.myLogger.info(new Date() + ": Attention check started by WorkerId: " + this.context.workerId);
     }
 
     async getScenario() {
-        const sid = Math.floor(Math.random() * 3) + 1;
         const PROXY_URL = `https://cors-anywhere.herokuapp.com/`;
-        const URL = PROXY_URL + `https://cryptic-headland-35693.herokuapp.com/getScenarioAndHouse?sid=${sid}`;
+        const URL = PROXY_URL + `https://cryptic-headland-35693.herokuapp.com/getScenarioAndHouse?sid=${this.context.scenarioId}`;
         try {
             let response = await fetch(URL, {method: "GET",
                 headers: {
                     "Access-Control-Allow-Origin": "*"
                 }});
             response = await response.json();
-            this.setState({data: response, loading: false})
-            console.log(response)
+            this.setState({scenario: response, loading: false})
         }
         catch(e) {
-            console.log(await JSON.stringify(e))
+            window.myLogger.error(await JSON.stringify(e))
         }
     }
 
     handleSubmit = (event) => {
-        if (!this.state.attentionCheckName || (this.state.attentionCheckName.toLowerCase() !== this.state.data.scenarioName.toLowerCase())) {
+        if (!this.state.attentionCheckName || (this.state.attentionCheckName.toLowerCase() !== this.state.scenario.scenarioName.toLowerCase())) {
             event.preventDefault();
             event.stopPropagation();
             this.setState({errorState: true, validated: false})
 
-            let log = [new Date() + ": Attention Check failed by WorkerId: " + this.context];
-            this.setState({logs: concat(this.state.logs, log)})
+            window.myLogger.info(new Date() + ": Attention check failed by WorkerId: " + this.context.workerId);
         }
         else {
-            let log = [new Date() + ": Attention Check passed by WorkerId: " + this.context];
-            this.setState({logs: concat(this.state.logs, log)})
+            window.myLogger.info(new Date() + ": Attention check passed by WorkerId: " + this.context.workerId);
             this.setState({validated: true})
         }
     };
@@ -76,7 +69,7 @@ class LandingPage extends React.Component {
                         <h1>Find Your Perfect House</h1>
                     </div>
                     <div className={"contentWrapper"}>
-                        <Scenarios scenarioItem={this.state.data.description}/>
+                        <Scenarios scenarioItem={this.state.scenario.description}/>
                         <div className={"attentionCheckWrapper"}>
                             <Form noValidate validated={this.state.validated} className={"form-group attention-check"} onSubmit={this.handleSubmit}>
                                 <Form.Group>
@@ -97,7 +90,7 @@ class LandingPage extends React.Component {
                                 <div className="proceed-wrapper">
                                     <Link to={{
                                         pathname: "/search",
-                                        state: this.state.data
+                                        state: this.state.scenario
                                     }}
                                           onClick={this.handleSubmit}>
                                         <Button type={"submit"} size="lg" className="btn btn-green">

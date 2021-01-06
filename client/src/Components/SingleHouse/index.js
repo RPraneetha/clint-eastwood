@@ -5,37 +5,30 @@ import {Link} from "react-router-dom";
 import WorkerIdContext from "../WorkerIdContext";
 
 class SingleHouse extends React.Component {
-
     constructor(props) {
         super(props);
         this.state = {
-            showModal: false,
-            logs: []
+            showModal: false
         }
         this.handleClose = this.handleClose.bind(this);
         this.handleShow = this.handleShow.bind(this);
     }
 
-    componentDidMount() {
-        this.setState({logs: this.props.logs})
-    }
-
     handleClose = () => {
-        let log = [new Date() + ": House " + this.props.house.description + " with House Id " + this.props.house["_id"]  + " closed by WorkerId: " + this.context];
-        this.setState({ logs: this.state.logs.concat(log) });
+        window.myLogger.info(new Date() + ": House " + this.props.house.description + " with House Id " +
+            this.props.house["_id"]  + " closed by WorkerId: " + this.context.workerId);
         this.setState({showModal: false});
     }
 
     handleShow = () => {
-        let log = [new Date() + ": House " + this.props.house.description + " with House Id " + this.props.house["_id"]  + " clicked by WorkerId: " + this.context];
-        this.setState({ logs: this.state.logs.concat(log) });
+        window.myLogger.info(new Date() + ": House " + this.props.house.description + " with House Id " +
+            this.props.house["_id"]  + " clicked by WorkerId: " + this.context.workerId);
         this.setState({showModal: true});
     }
 
     handleSubmit = () => {
-        let log = [new Date() + ": House " + this.props.house.description + " with House Id " + this.props.house["_id"]  + " selected by WorkerId: " + this.context];
-        this.setState({ logs: this.state.logs.concat(log) });
-        this.props.setLogs(this.state.logs);
+        window.myLogger.info(new Date() + ": House " + this.props.house.description + " with House Id " +
+            this.props.house["_id"]  + " selected by WorkerId: " + this.context.workerId);
     }
 
     render() {
