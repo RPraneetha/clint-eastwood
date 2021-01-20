@@ -2,7 +2,6 @@
     margin: 20px;
     width: 100%;
     padding: 20px 30px;
-    max-width: 1400px;
 }
 
 @media screen and (max-width: 767px) {
@@ -22,13 +21,9 @@
     text-align: center;
 }
 
-.nohouses {
+.house-heading {
     display: block;
     color: #0eaaa6;
     text-align: center;
     padding-bottom: 20px;
-}
-
-.nohouses span {
-    color: #999;
 }

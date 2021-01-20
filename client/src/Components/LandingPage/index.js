@@ -93,7 +93,7 @@ class LandingPage extends React.Component {
                                         state: this.state.scenario
                                     }}
                                           onClick={this.handleSubmit}>
-                                        <Button type={"submit"} size="lg" className="btn btn-green">
+                                        <Button type={"submit"} size="lg" className="btn-green btn">
                                             Proceed <FaArrowRight className={"FaArrowRight"}/>
                                         </Button>
                                     </Link>

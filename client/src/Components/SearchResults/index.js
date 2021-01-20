@@ -1,5 +1,7 @@
 import * as React from 'react';
-import equal from 'fast-deep-equal'
+import equal from 'fast-deep-equal';
+import { Button, CardDeck, Form, Row } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import SingleHouse from '../SingleHouse';
 import Loader from "../Loader";
 import './index.css';
@@ -14,7 +16,9 @@ class SearchResults extends React.Component {
         this.state = {
             house: {},
             constraintsCheck: false,
-            loading: true
+            loading: true,
+            showAllHouses: false,
+            incorrectHousesList: []
         }
     }
 
@@ -43,13 +47,14 @@ class SearchResults extends React.Component {
         window.myLogger.info(new Date() + ": Search Constraints are being checked for by WorkerId: " + this.context.workerId);
         await this.checkConstraints();
         window.myLogger.info(new Date() + ": Search Constraints are " + this.state.constraintsCheck + " for WorkerId: " + this.context.workerId);
-
+        await this.getIncorrectHouses();
         if(this.state.constraintsCheck === "true") {
             this.setState({house: this.props.scenario.correctHouse})
             window.myLogger.info(new Date() + ": Correct House with houseId " + this.props.scenario.correctHouse["_id"] + " given to WorkerId: " + this.context.workerId);
         }
         else {
-            await this.getIncorrectHouses();
+            const incorrectHouseNumber = Math.floor(Math.random() * this.state.incorrectHousesList.length);
+            this.setState({ house: this.state.incorrectHousesList[incorrectHouseNumber] });
             window.myLogger.info(new Date() + ": Incorrect House with houseId " + this.state.house["_id"] + " given to WorkerId: " + this.context.workerId);
         }
     }
@@ -92,13 +97,20 @@ class SearchResults extends React.Component {
         await fetch(INCORRECTHOUSES_URL, { method: "GET" })
             .then(response => response.json())
             .then ((response) => {
-                const incorrectHouseNumber = Math.floor(Math.random() * response.length);
-                this.setState({house: response[incorrectHouseNumber]});
-                this.setState({isLoading: false});
+                this.setState({
+                    incorrectHousesList: response,
+                    isLoading: false
+                });
             })
             .catch((error) => {
                 window.myLogger.error(error);
             })
+    }
+
+    houseSubmitHandler = () => {
+        // window.myLogger.info(new Date() + ": House " + this.props.house.description + " with House Id " +
+        //     this.props.house["_id"]  + " selected by WorkerId: " + this.context.workerId);
+        console.log("yes")
     }
 
     render() {
@@ -107,28 +119,33 @@ class SearchResults extends React.Component {
                 <Loader />
                 :
             <div className="searchForm">
-                <div className="resultTable">
-                    <div className="resultBody">
-                        <div className="resultsList">
-                            <div className="nohouses">
-                                <h2>Select A House To Proceed!</h2>
-                                <span>Click on the house to see additional information</span>
-                            </div>
-                            <div className="row">
-                                {this.state.house ? (
-                                        <div className="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-                                            <SingleHouse house={this.state.house} />
-                                        </div>
-                                    )
-                                    :
-                                    <span className="nohouses">
-                            <h1>Sorry, there are no houses matching your requirements.</h1>
-                        </span>
-                                }
-                            </div>
-                        </div>
-                    </div>
+                <div className="house-heading">
+                    <h2>Select A House To Proceed!</h2>
+                    <span>Click on the house to see additional information</span>
                 </div>
+                <div className="row">
+                    <CardDeck>
+                        <SingleHouse house={this.state.house}/>
+                        {
+                            this.state.showAllHouses &&
+                                this.state.incorrectHousesList.map(house => {
+                                    return(
+                                        <SingleHouse house={house} key={house["_id"]}/>
+                                    )
+                                })
+                        }
+                    </CardDeck>
+                </div>
+                <Form.Group as={Row}>
+                    <Button variant="primary" onClick={() => this.setState({showAllHouses: !this.state.showAllHouses})}>
+                        Show all available houses
+                    </Button>
+                    {/*<Link to="/exitForm">*/}
+                    {/*    <Button variant="primary" onClick={this.houseSubmitHandler}>*/}
+                    {/*        Submit this house*/}
+                    {/*    </Button>*/}
+                    {/*</Link>*/}
+                </Form.Group>
             </div>
         );
     }
