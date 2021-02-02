@@ -22,3 +22,7 @@
 .row {
     justify-content: left;
 }
+
+.proceed-wrapper {
+    padding-top: 15px;
+}

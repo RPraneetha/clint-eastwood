@@ -21,7 +21,7 @@ class SingleHouse extends React.Component {
     render() {
         let house = this.props.house;
         return (
-                <Card style={{ minWidth: "20%", maxWidth: "30%", margin: "15px" }}>
+                <Card style={{ minWidth: "20%", maxWidth: "50%", margin: "15px" }}>
                     <Card.Img variant="top" src={house.url} />
                     <Card.Body>
                         <Card.Text>
@@ -44,11 +44,11 @@ class SingleHouse extends React.Component {
                                 </Button>
                                 :
                                 <Form.Group as={Row}>
-                                    <Button variant="primary" onClick={() => this.setState({toggleConfirm: !this.state.toggleConfirm})}>
+                                    <Button variant="secondary" onClick={() => this.setState({toggleConfirm: !this.state.toggleConfirm})}>
                                         Go back
                                     </Button>
                                     <Link to="/exitForm">
-                                        <Button variant="primary" onClick={this.handleSubmit}>
+                                        <Button variant="success" onClick={this.handleSubmit}>
                                             Confirm your choice
                                         </Button>
                                     </Link>

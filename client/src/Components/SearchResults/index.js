@@ -1,13 +1,12 @@
 import * as React from 'react';
 import equal from 'fast-deep-equal';
 import { Button, CardDeck, Form, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import SingleHouse from '../SingleHouse';
 import Loader from "../Loader";
 import './index.css';
 import WorkerIdContext from "../WorkerIdContext";
 
-const PROXY_URL = "https://cors-anywhere.herokuapp.com/";
+const PROXY_URL = `https://infinite-plateau-04823.herokuapp.com/`;
 const CONSTRAINTS_URL = PROXY_URL + "https://cryptic-headland-35693.herokuapp.com/checkConstraints";
 
 class SearchResults extends React.Component {
@@ -137,14 +136,9 @@ class SearchResults extends React.Component {
                     </CardDeck>
                 </div>
                 <Form.Group as={Row}>
-                    <Button variant="primary" onClick={() => this.setState({showAllHouses: !this.state.showAllHouses})}>
+                    <Button variant="danger" onClick={() => this.setState({showAllHouses: !this.state.showAllHouses})}>
                         Show all available houses
                     </Button>
-                    {/*<Link to="/exitForm">*/}
-                    {/*    <Button variant="primary" onClick={this.houseSubmitHandler}>*/}
-                    {/*        Submit this house*/}
-                    {/*    </Button>*/}
-                    {/*</Link>*/}
                 </Form.Group>
             </div>
         );
