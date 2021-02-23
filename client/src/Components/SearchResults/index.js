@@ -46,8 +46,8 @@ class SearchResults extends React.Component {
         window.myLogger.info(new Date() + ": Search Constraints are being checked for by WorkerId: " + this.context.workerId);
         await this.checkConstraints();
         window.myLogger.info(new Date() + ": Search Constraints are " + this.state.constraintsCheck + " for WorkerId: " + this.context.workerId);
-        await this.getIncorrectHouses();
-        if(this.state.constraintsCheck === "true") {
+        await this.getIncorrectHouses();  
+        if (this.state.constraintsCheck === "true" && this.context.scenarioType === 1) {
             this.setState({house: this.props.scenario.correctHouse})
             window.myLogger.info(new Date() + ": Correct House with houseId " + this.props.scenario.correctHouse["_id"] + " given to WorkerId: " + this.context.workerId);
         }
