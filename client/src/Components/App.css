@@ -38,6 +38,8 @@ html, body {
 }
 
 .btn-green {
+  border-radius: 2px;
+  text-decoration: none;
   background-color: #0eaaa6;
   color: #fff;
 }

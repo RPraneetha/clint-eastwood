@@ -8,8 +8,8 @@ import WorkerIdContext from "./Components/WorkerIdContext";
 function Root() {
     let params = new URLSearchParams(window.location.search);
     let workerId = params.get('wid') ? params.get('wid') : 1234;
-    let scenarioId = params.get('sid') ? params.get('acc') : 1;
-    let scenarioType = params.get('type') ? params.get('type') : 0;
+    let scenarioId = params.get('sid') ? params.get('sid') : 1;
+    let scenarioType = params.get('acc') ? params.get('acc') : 0;
 
     return (
         <React.StrictMode>

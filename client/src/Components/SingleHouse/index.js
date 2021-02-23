@@ -1,29 +1,16 @@
 import * as React from 'react';
 import './index.css';
-import { Button, Modal} from "react-bootstrap";
-import {Link} from "react-router-dom";
+import { Button, Card, Form, Row} from "react-bootstrap";
+import { Link } from "react-router-dom";
 import WorkerIdContext from "../WorkerIdContext";
 
 class SingleHouse extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            showModal: false
+            showModal: false,
+            toggleConfirm: false
         }
-        this.handleClose = this.handleClose.bind(this);
-        this.handleShow = this.handleShow.bind(this);
-    }
-
-    handleClose = () => {
-        window.myLogger.info(new Date() + ": House " + this.props.house.description + " with House Id " +
-            this.props.house["_id"]  + " closed by WorkerId: " + this.context.workerId);
-        this.setState({showModal: false});
-    }
-
-    handleShow = () => {
-        window.myLogger.info(new Date() + ": House " + this.props.house.description + " with House Id " +
-            this.props.house["_id"]  + " clicked by WorkerId: " + this.context.workerId);
-        this.setState({showModal: true});
     }
 
     handleSubmit = () => {
@@ -34,44 +21,41 @@ class SingleHouse extends React.Component {
     render() {
         let house = this.props.house;
         return (
-            <div className={"singleHouse"}>
-                <a href={"#/search"} className={"card"} onClick={this.handleShow}>
-                    <div className={"figure"}>
-                        <img src={house.url} alt={"image"} width={"500"} height={"300"} />
-                        <div className={"figType"}>FOR RENT</div>
-                    </div>
-                    <h2>{house.description.replace(/(^\w|\s\w)/g, m => m.toUpperCase())}</h2>
-                    <div className={"cardAddress"}><span className={"icon-pointer"} />
-                        {house.name.replace(/(^\w|\s\w)/g, m => m.toUpperCase())}
-                    </div>
-                </a>
-                <Modal size={"lg"} show={this.state.showModal} onHide={this.handleClose} >
-                    <Modal.Header closeButton>
-                        <Modal.Title className={"modalTitle"}>{house.description.replace(/(^\w|\s\w)/g, m => m.toUpperCase())}</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <div className={"modalFigure"}>
-                            <img src={house.url} alt={house.name} />
-                        </div>
-                        <div className={"modalCardAddress"}>
-                            {house.name.replace(/(^\w|\s\w)/g, m => m.toUpperCase())}
-                        </div>
-                        <div className={"card-text"}>
-                            {house.summary.replace(/ \\n/g, ".")}
-                        </div>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="secondary" onClick={this.handleClose}>
-                            Back
-                        </Button>
-                            <Link to="/exitForm">
-                                <Button variant="primary" onClick={this.handleSubmit}>
-                                    Confirm Your Choice
+                <Card style={{ minWidth: "20%", maxWidth: "50%", margin: "15px" }}>
+                    <Card.Img variant="top" src={house.url} />
+                    <Card.Body>
+                        <Card.Text>
+                            <div className={"figType"}>FOR RENT</div>
+                            <h2>{house.description.replace(/(^\w|\s\w)/g, m => m.toUpperCase())}</h2>
+
+                            <div className={"cardAddress"}>
+                                {house.name.replace(/(^\w|\s\w)/g, m => m.toUpperCase())}
+                            </div>
+                            <div className={"card-text"}>
+                                {house.summary.replace(/ \\n/g, ".")}
+                            </div>
+                        </Card.Text>
+                    </Card.Body>
+                    <Card.Footer className="text-muted">
+                        {
+                            !this.state.toggleConfirm ?
+                                <Button variant="primary" onClick={() => this.setState({toggleConfirm: !this.state.toggleConfirm})}>
+                                    Submit this house
                                 </Button>
-                            </Link>
-                    </Modal.Footer>
-                </Modal>
-            </div>
+                                :
+                                <Form.Group as={Row}>
+                                    <Button variant="secondary" onClick={() => this.setState({toggleConfirm: !this.state.toggleConfirm})}>
+                                        Go back
+                                    </Button>
+                                    <Link to="/exitForm">
+                                        <Button variant="success" onClick={this.handleSubmit}>
+                                            Confirm your choice
+                                        </Button>
+                                    </Link>
+                                </Form.Group>
+                        }
+                    </Card.Footer>
+                </Card>
         );
     }
 }
