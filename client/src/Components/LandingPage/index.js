@@ -30,7 +30,7 @@ class LandingPage extends React.Component {
     }
 
     async getScenario() {
-        const PROXY_URL = `https://cors-anywhere.herokuapp.com/`;
+        const PROXY_URL = `https://infinite-plateau-04823.herokuapp.com/`;
         const URL = PROXY_URL + `https://cryptic-headland-35693.herokuapp.com/getScenarioAndHouse?sid=${this.context.scenarioId}`;
         try {
             let response = await fetch(URL, {method: "GET",
@@ -93,7 +93,7 @@ class LandingPage extends React.Component {
                                         state: this.state.scenario
                                     }}
                                           onClick={this.handleSubmit}>
-                                        <Button type={"submit"} size="lg" className="btn btn-green">
+                                        <Button type={"submit"} size="lg" className="btn-green btn">
                                             Proceed <FaArrowRight className={"FaArrowRight"}/>
                                         </Button>
                                     </Link>

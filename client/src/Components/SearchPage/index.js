@@ -58,7 +58,9 @@ class SearchPage extends React.Component {
                     </div>
                     <div className="selectBarWrapper">
                         <Scenarios scenarioItem={this.props.history.location.state.description} />
-                        <h3>Click on submit only after filling in all the preferences.</h3>
+                        <div className="requirements">
+                            <h3>Click on submit only after filling in all the preferences.</h3>
+                        </div>
                         <Form className="search-panel">
                             <Form.Group controlId="houseType" className={"form-control-select"}>
                                 <Form.Control as="select" onChange={this.handleInputChange}>
@@ -144,13 +146,13 @@ class SearchPage extends React.Component {
                                                 this.setState({addPreferences: true})
                                             }
                                         }>
-                                            Add more preferences
+                                            Add more filters
                                         </Button>
                                     </Col>
                                 }
                                 <Col>
                                     <Button id={"submit"} size={"md"} onClick={this.formSubmitHandler}>
-                                        Submit
+                                        Submit preferences
                                     </Button>
                                 </Col>
                             </Form.Group>
