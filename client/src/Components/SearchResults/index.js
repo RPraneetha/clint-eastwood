@@ -106,12 +106,6 @@ class SearchResults extends React.Component {
             })
     }
 
-    houseSubmitHandler = () => {
-        // window.myLogger.info(new Date() + ": House " + this.props.house.description + " with House Id " +
-        //     this.props.house["_id"]  + " selected by WorkerId: " + this.context.workerId);
-        console.log("yes")
-    }
-
     render() {
         return (
             this.state.loading ?
@@ -137,7 +131,12 @@ class SearchResults extends React.Component {
                 </div>
                 <Form.Group as={Row}>
                     <Button variant="danger" onClick={() => this.setState({showAllHouses: !this.state.showAllHouses})}>
-                        Show all available houses
+                        {
+                            !this.state.showAllHouses ?
+                                "Show all available houses"
+                            :
+                                "Show system recommended house"
+                        }
                     </Button>
                 </Form.Group>
             </div>
