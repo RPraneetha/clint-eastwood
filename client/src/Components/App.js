@@ -6,6 +6,7 @@ import SearchPage from "./SearchPage";
 import ResQue from "./ResQue";
 import ATI from "./ATI";
 import Loader from "./Loader";
+import ThankYou from "./ThankYou";
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import WorkerIdContext from "./WorkerIdContext";
@@ -54,6 +55,7 @@ class App extends React.Component {
                                 <Route exact path="/land" render={(props) => <LandingPage {...props} />} />
                                 <Route exact path="/search" render={(props) => <SearchPage {...props} logger={this.state.logger} />} />
                                 <Route exact path="/exitForm" render={(props) => <ResQue {...props} />} />
+                                <Route exact path="/ty" render={(props) => <ThankYou {...props} />} />
                             </Router>
                         </div>
                     </div>
