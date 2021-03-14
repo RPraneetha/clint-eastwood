@@ -47,6 +47,11 @@ class SearchPage extends React.Component {
         this.setState({filters: this.filters, isSubmitted: true})
     }
 
+    resetFilter = () => {
+        window.myLogger.info(new Date() + ": Search Filters have been reset by WorkerId: " + this.context.workerId);
+        this.setState({addPreferences: false, isSubmitted: false});
+    }
+
     render() {
         return (
             this.state.loading ?
@@ -54,12 +59,12 @@ class SearchPage extends React.Component {
                 :
                 <div className="contentWrapper">
                     <div className="header">
-                        <h1>Find Your Perfect House</h1>
+                        <h1>Find Your House</h1>
                     </div>
                     <div className="selectBarWrapper">
                         <Scenarios scenarioItem={this.props.history.location.state.description} />
                         <div className="requirements">
-                            <h3>Click on submit only after filling in all the preferences.</h3>
+                            <h2>Please Enter Your Requirements to Find Your House!</h2>
                         </div>
                         <Form className="search-panel">
                             <Form.Group controlId="houseType" className={"form-control-select"}>
@@ -79,6 +84,7 @@ class SearchPage extends React.Component {
                                             <option selected={true} value={-1}>Duration (in months)</option>\n
                                             {times(24, i => <option key={i}>{i + 1}</option>)}
                                         </Form.Control>
+                                        <span className={"optional"}>Optional</span>
                                     </Form.Group>
                                     <Form.Group controlId="maxRent" className={"form-control-select"}>
                                         <InputGroup className="input-group">
@@ -99,6 +105,7 @@ class SearchPage extends React.Component {
                                                 onChange={this.handleInputChange}
                                                 min={0}
                                             />
+                                            <span className={"optional"}>Optional</span>
                                         </InputGroup>
                                     </Form.Group>
                                     <Form.Group controlId="maxCommuteTime" className={"form-control-select"}>
@@ -113,6 +120,7 @@ class SearchPage extends React.Component {
                                                 min={0}
                                             />
                                         </InputGroup>
+                                        <span className={"optional"}>Optional</span>
                                     </Form.Group>
                                     <Form.Group as={Row} className={"form-group-checkbox"}>
                                         <Form.Check
@@ -159,18 +167,11 @@ class SearchPage extends React.Component {
                         </Form>
                     </div>
                     <div className="searchPageWrapper">
-                        {this.state.isSubmitted ? (
-                                <SearchResults filters={this.state.filters} scenario={this.props.history.location.state} />
-                            )
-                            :
-                            (
-                                <div className="searchForm">
-                                    <div className="resultTable">
-                                        <div className="requirements">
-                                            <h1>Please Enter Your Requirements to Find Your Perfect House!</h1>
-                                        </div>
-                                    </div>
-                                </div>
+                        {this.state.isSubmitted && (
+                                <SearchResults
+                                    filters={this.state.filters}
+                                    scenario={this.props.history.location.state}
+                                    resetFilter={this.resetFilter}/>
                             )}
                     </div>
                 </div>

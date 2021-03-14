@@ -18,6 +18,11 @@ class SingleHouse extends React.Component {
             this.props.house["_id"]  + " selected by WorkerId: " + this.context.workerId);
     }
 
+    resetFilterHandler = () => {
+        this.setState({toggleConfirm: !this.state.toggleConfirm});
+        this.props.resetFilter();
+    }
+
     render() {
         let house = this.props.house;
         return (
@@ -44,8 +49,8 @@ class SingleHouse extends React.Component {
                                 </Button>
                                 :
                                 <Form.Group as={Row}>
-                                    <Button variant="secondary" onClick={() => this.setState({toggleConfirm: !this.state.toggleConfirm})}>
-                                        Go back
+                                    <Button variant="secondary" onClick={this.resetFilterHandler}>
+                                        Reset filters
                                     </Button>
                                     <Link to="/exitForm">
                                         <Button variant="success" onClick={this.handleSubmit}>

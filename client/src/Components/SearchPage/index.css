@@ -71,3 +71,12 @@
   vertical-align: center;
 }
 
+.col {
+  max-width: max-content !important;
+}
+
+.optional {
+  vertical-align: center;
+  color: white;
+  padding: 5px;
+}

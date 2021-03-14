@@ -53,7 +53,7 @@ class SearchResults extends React.Component {
         }
         else {
             const incorrectHouseNumber = Math.floor(Math.random() * this.state.incorrectHousesList.length);
-            this.setState({ house: this.state.incorrectHousesList[incorrectHouseNumber] });
+            this.setState({ house: this.state.incorrectHousesList[incorrectHouseNumber]});
             window.myLogger.info(new Date() + ": Incorrect House with houseId " + this.state.house["_id"] + " given to WorkerId: " + this.context.workerId);
         }
     }
@@ -114,16 +114,15 @@ class SearchResults extends React.Component {
             <div className="searchForm">
                 <div className="house-heading">
                     <h2>Select A House To Proceed!</h2>
-                    <span>Click on the house to see additional information</span>
                 </div>
                 <div className="row">
                     <CardDeck>
-                        <SingleHouse house={this.state.house}/>
+                        <SingleHouse house={this.state.house} resetFilter={this.props.resetFilter}/>
                         {
                             this.state.showAllHouses &&
                                 this.state.incorrectHousesList.map(house => {
                                     return(
-                                        <SingleHouse house={house} key={house["_id"]}/>
+                                        <SingleHouse house={house} key={house["_id"]} resetFilter={this.props.resetFilter}/>
                                     )
                                 })
                         }
@@ -135,7 +134,7 @@ class SearchResults extends React.Component {
                             !this.state.showAllHouses ?
                                 "Show all available houses"
                             :
-                                "Show system recommended house"
+                                "Show your house"
                         }
                     </Button>
                 </Form.Group>
