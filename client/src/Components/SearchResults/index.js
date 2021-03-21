@@ -134,7 +134,7 @@ class SearchResults extends React.Component {
                             !this.state.showAllHouses ?
                                 "Show all available houses"
                             :
-                                "Show your house"
+                                "Show initial house"
                         }
                     </Button>
                 </Form.Group>

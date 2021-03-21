@@ -10,10 +10,12 @@ function Root() {
     let workerId = params.get('wid') ? params.get('wid') : 1234;
     let scenarioId = params.get('sid') ? params.get('sid') : 1;
     let scenarioType = params.get('acc') ? params.get('acc') : 0;
+    let condition = params.get('cnd') ? params.get('cnd') : 1;
+    let stage = params.get('STAGE') ? params.get('STAGE') : 1;
 
     return (
         <React.StrictMode>
-            <WorkerIdContext.Provider value={{ workerId, scenarioId, scenarioType }}>
+            <WorkerIdContext.Provider value={{ workerId, scenarioId, scenarioType, condition, stage }}>
                 <App />
             </WorkerIdContext.Provider>
         </React.StrictMode>

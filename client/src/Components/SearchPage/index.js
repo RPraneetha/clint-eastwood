@@ -25,6 +25,7 @@ class SearchPage extends React.Component {
             "maxCommuteTime": -1,
             "registration": false
         }
+        this.formRef = React.createRef();
     }
 
     componentDidMount() {
@@ -48,6 +49,7 @@ class SearchPage extends React.Component {
     }
 
     resetFilter = () => {
+        this.formRef.current.reset();
         window.myLogger.info(new Date() + ": Search Filters have been reset by WorkerId: " + this.context.workerId);
         this.setState({addPreferences: false, isSubmitted: false});
     }
@@ -66,7 +68,7 @@ class SearchPage extends React.Component {
                         <div className="requirements">
                             <h2>Please Enter Your Requirements to Find Your House!</h2>
                         </div>
-                        <Form className="search-panel">
+                        <Form ref={this.formRef} className="search-panel">
                             <Form.Group controlId="houseType" className={"form-control-select"}>
                                 <Form.Control as="select" onChange={this.handleInputChange}>
                                     <option selected={true} value={-1}>House Type</option>
