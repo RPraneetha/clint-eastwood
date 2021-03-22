@@ -3,8 +3,6 @@ import './index.css';
 import Loader from "../Loader";
 import WorkerIdContext from "../WorkerIdContext";
 
-const PROXY_URL = `https://infinite-plateau-04823.herokuapp.com/`;
-
 class ResQue extends React.Component {
     constructor(props) {
         super(props);
