@@ -138,10 +138,7 @@ class ATI extends React.Component {
                             </tbody>
                         </table>
                         <br /><hr />
-                        <label style={{ fontSize: '14px' }}>Any Comments Before We Start?</label><br />
-                        <input className="addedFeedback" type="textarea" name="addedFeedback" wrap={"soft"} onChange={this.handleOptionChange} />
-                        <br /><hr />
-                        <button type="submit" className="pageclip-form__submit" onClick={this.navigate} style={{ background: '#0EAAA6', width: '20%', padding: '5px', margin: '0 auto 20px auto', display: 'block' }}>
+                        <button type="submit" className="pageclip-form__submit" onSubmit={this.navigate} onClick={this.navigate} style={{ background: '#0EAAA6', width: '20%', padding: '5px', margin: '0 auto 20px auto', display: 'block' }}>
                             <span style={{ color: '#FFFFFF' }}>Submit Response</span>
                         </button>
                     </form>

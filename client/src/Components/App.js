@@ -1,6 +1,6 @@
 import React from 'react';
 import log4javascript from 'log4javascript';
-import { HashRouter as Router, Route } from 'react-router-dom';
+import { HashRouter as Router, Route, Redirect } from 'react-router-dom';
 import LandingPage from "./LandingPage";
 import SearchPage from "./SearchPage";
 import ResQue from "./ResQue";
@@ -25,8 +25,7 @@ class App extends React.Component {
 
     componentDidMount() {
         window.myLogger = log4javascript.getLogger();
-        // const ajaxAppender = new log4javascript.AjaxAppender("/storeLogs");
-        const ajaxAppender = new log4javascript.AjaxAppender("http://localhost:9000/storeLogs");
+        const ajaxAppender = new log4javascript.AjaxAppender("/storeLogs");
         ajaxAppender.setBatchSize(50); // send in batches of 10
         ajaxAppender.setSendAllOnUnload(true); // send all remaining messages on window.beforeunload()
         window.myLogger.addAppender(ajaxAppender);
@@ -37,7 +36,8 @@ class App extends React.Component {
             return true;
         };
 
-        window.myLogger.info(new Date() + ": Session started by WorkerId: " + this.context.workerId);
+        window.myLogger.info(new Date() + ": Session started by WorkerId: " + this.context.workerId +
+                            " With condition: " + this.context.condition + " and at Stage: " + this.context.stage);
         this.setState({ logger: window.myLogger, loading: false })
     }
 
@@ -50,7 +50,11 @@ class App extends React.Component {
                                 {this.state.loading ?
                                     <Loader/>
                                     :
-                                    <Route exact path="/" render={(props) => <ATI {...props} logger={this.state.logger}  />} />
+                                    this.context.stage === "1" ?
+                                        <Route exact path="/" render={(props) => <ATI {...props} logger={this.state.logger}  />} />
+                                    :
+                                        <Redirect to="/land" push />
+
                                 }
                                 <Route exact path="/land" render={(props) => <LandingPage {...props} />} />
                                 <Route exact path="/search" render={(props) => <SearchPage {...props} logger={this.state.logger} />} />

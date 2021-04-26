@@ -17,7 +17,8 @@ class SearchResults extends React.Component {
             constraintsCheck: false,
             loading: true,
             showAllHouses: false,
-            incorrectHousesList: []
+            incorrectHousesList: [],
+            allHousesList: []
         }
     }
 
@@ -46,14 +47,15 @@ class SearchResults extends React.Component {
         window.myLogger.info(new Date() + ": Search Constraints are being checked for by WorkerId: " + this.context.workerId);
         await this.checkConstraints();
         window.myLogger.info(new Date() + ": Search Constraints are " + this.state.constraintsCheck + " for WorkerId: " + this.context.workerId);
-        await this.getIncorrectHouses();  
+        await this.getIncorrectHouses();
+        this.setState({allHousesList: this.state.incorrectHousesList.concat(this.props.scenario.correctHouse)})
         if (this.state.constraintsCheck === "true" && this.context.scenarioType === 1) {
             this.setState({house: this.props.scenario.correctHouse})
             window.myLogger.info(new Date() + ": Correct House with houseId " + this.props.scenario.correctHouse["_id"] + " given to WorkerId: " + this.context.workerId);
         }
         else {
             const incorrectHouseNumber = Math.floor(Math.random() * this.state.incorrectHousesList.length);
-            this.setState({ house: this.state.incorrectHousesList[incorrectHouseNumber] });
+            this.setState({ house: this.state.incorrectHousesList[incorrectHouseNumber]});
             window.myLogger.info(new Date() + ": Incorrect House with houseId " + this.state.house["_id"] + " given to WorkerId: " + this.context.workerId);
         }
     }
@@ -114,16 +116,16 @@ class SearchResults extends React.Component {
             <div className="searchForm">
                 <div className="house-heading">
                     <h2>Select A House To Proceed!</h2>
-                    <span>Click on the house to see additional information</span>
                 </div>
                 <div className="row">
                     <CardDeck>
-                        <SingleHouse house={this.state.house}/>
-                        {
+                        { !this.state.showAllHouses ?
+                        <SingleHouse house={this.state.house} resetFilter={this.props.resetFilter}/>
+                        :
                             this.state.showAllHouses &&
-                                this.state.incorrectHousesList.map(house => {
+                                this.state.allHousesList.map(house => {
                                     return(
-                                        <SingleHouse house={house} key={house["_id"]}/>
+                                        <SingleHouse house={house} key={house["_id"]} resetFilter={this.props.resetFilter}/>
                                     )
                                 })
                         }
@@ -135,7 +137,7 @@ class SearchResults extends React.Component {
                             !this.state.showAllHouses ?
                                 "Show all available houses"
                             :
-                                "Show system recommended house"
+                                "Show initial house"
                         }
                     </Button>
                 </Form.Group>

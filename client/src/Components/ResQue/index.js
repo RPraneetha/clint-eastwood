@@ -26,9 +26,17 @@ class ResQue extends React.Component {
         window.myLogger.info(time + "Value for question ID " + className + " changed to " + value);
     }
 
-    navigate = () => {
+    navigate = (e) => {
+        e.preventDefault();
         window.myLogger.info(new Date() + ": ResQue survey submitted by WorkerId: " + this.context.workerId);
-        this.props.history.push('/ty');
+        if(this.context.stage === "1") {
+            window.myLogger.info(new Date() + ": Redirecting to transition page - WorkerId: " + this.context.workerId);
+            window.location = "https://crowdsensing.tk/dss?PROLIFIC_PID=" + this.context.workerId +
+                "&cnd=" + this.context.condition + "&stage=2";
+        } else if(this.context.stage === "2"){
+            window.myLogger.info(new Date() + ": Redirecting to completion page - WorkerId: " + this.context.workerId);
+            window.location = "https://app.prolific.co/submissions/complete?cc=84186F2D";
+        }
     }
 
     render() {
@@ -42,7 +50,7 @@ class ResQue extends React.Component {
                         <div className="header-form" style={{ margin: 'auto', textAlign: 'center', background: '#0EAAA6', padding: '25px' }}>
                             <span style={{ display: 'inline-block', verticalAlign: 'middle', margin: 'auto' }}><h2 style={{ color: '#FFFFFF', fontSize: '20pt', fontFamily: 'sans-serif', verticalAlign: 'middle' }}>Tell Us What You Think Of The System</h2></span>
                         </div>
-                        <form id="survey-form" action="https://send.pageclip.co/ssJ875Dr8gsBFokkWaOxD7zvXK70aOkU/exit-survey-form-resque" className="pageclip-form" method="post" onSubmit={this.navigate}>
+                        <form id="survey-form" action="https://send.pageclip.co/ssJ875Dr8gsBFokkWaOxD7zvXK70aOkU/exit-survey-form-resque" className="pageclip-form" method="post" onSubmit={(e) => this.navigate(e)}>
                             <input type="hidden" id="workerId" className="workerId" name="workerId" defaultValue="default-id" />
                             <input type="hidden" id="interfaceType" className="interfaceType" name="interfaceType" defaultValue="gui" />
                             <input type="hidden" id="startTime" className="startTime" name="startTime" defaultValue={new Date()} />
@@ -441,7 +449,7 @@ class ResQue extends React.Component {
                             <label style={{ fontSize: '14px' }}>Any Additional Comments?</label><br />
                             <input className="addedFeedback" type="textarea" name="addedFeedback" />
                             <br /><hr />
-                            <button type="submit" className="pageclip-form__submit" onClick={this.navigate} style={{padding: '5px', margin: '0 auto 20px auto'}}>
+                            <button type="submit" className="pageclip-form__submit" onClick={(e) => this.navigate(e)} style={{padding: '5px', margin: '0 auto 20px auto'}}>
                                 <span style={{ color: '#FFFFFF' }}>Submit Response</span>
                             </button>
                         </form>

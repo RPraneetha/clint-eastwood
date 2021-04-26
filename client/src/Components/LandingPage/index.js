@@ -66,7 +66,7 @@ class LandingPage extends React.Component {
                 :
                 <div className={"landingPageContainer"}>
                     <div className="header">
-                        <h1>Find Your Perfect House</h1>
+                        <h1>Find Your House</h1>
                     </div>
                     <div className={"contentWrapper"}>
                         <Scenarios scenarioItem={this.state.scenario.description}/>
