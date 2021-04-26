@@ -43,3 +43,11 @@ td.required:after {
     color: red;
     content: " *";
 }
+
+input[type=radio] {
+    margin: 10px;
+    -ms-transform: scale(2.5);
+    -webkit-transform: scale(2.5);
+    transform: scale(2.5);
+    border-radius: 0
+}

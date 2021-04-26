@@ -9,7 +9,7 @@ function Root() {
     let params = new URLSearchParams(window.location.search);
     let workerId = params.get('wid') ? params.get('wid') : 1234;
     let condition = params.get('cnd') ? params.get('cnd') : 1;
-    let stage = params.get('STAGE') ? params.get('STAGE') : 1;
+    let stage = params.get('stage') ? params.get('stage') : 1;
 
     function getRandomInt(min, max) {
         min = Math.ceil(min);

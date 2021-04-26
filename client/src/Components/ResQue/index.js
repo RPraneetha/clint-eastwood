@@ -32,10 +32,10 @@ class ResQue extends React.Component {
         if(this.context.stage === "1") {
             window.myLogger.info(new Date() + ": Redirecting to transition page - WorkerId: " + this.context.workerId);
             window.location = "https://crowdsensing.tk/dss?PROLIFIC_PID=" + this.context.workerId +
-                "&cnd=" + this.context.condition + "&STAGE=2";
+                "&cnd=" + this.context.condition + "&stage=2";
         } else if(this.context.stage === "2"){
             window.myLogger.info(new Date() + ": Redirecting to completion page - WorkerId: " + this.context.workerId);
-            window.location = "https://app.prolific.co/submissions/complete?cc=6F8D57DC";
+            window.location = "https://app.prolific.co/submissions/complete?cc=84186F2D";
         }
     }
 
