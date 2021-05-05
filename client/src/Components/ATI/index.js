@@ -23,6 +23,7 @@ class ATI extends React.Component {
         this.props.logger.info(new Date() + ": ATI survey started by WorkerId: " + this.context.workerId);
         return (
             <div>
+                <script src="https://s.pageclip.co/v1/pageclip.js" charSet="utf-8"></script>
                 <link rel="stylesheet" href="https://s.pageclip.co/v1/pageclip.css" media="screen" />
                 <div className="survey" style={{ margin: 'auto', width: '55%' }}>
                     <div className="header-form" style={{ margin: 'auto', textAlign: 'center', background: '#0EAAA6', padding: '25px' }}>
@@ -138,7 +139,7 @@ class ATI extends React.Component {
                             </tbody>
                         </table>
                         <br /><hr />
-                        <button type="submit" className="pageclip-form__submit" onSubmit={this.navigate} onClick={this.navigate} style={{ background: '#0EAAA6', width: '20%', padding: '5px', margin: '0 auto 20px auto', display: 'block' }}>
+                        <button type="submit" className="pageclip-form__submit" onSubmit={this.navigate} style={{ background: '#0EAAA6', width: '20%', padding: '5px', margin: '0 auto 20px auto', display: 'block' }}>
                             <span style={{ color: '#FFFFFF' }}>Submit Response</span>
                         </button>
                     </form>

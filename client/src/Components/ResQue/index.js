@@ -45,6 +45,7 @@ class ResQue extends React.Component {
                 <Loader/>
                 :
                 <div>
+                    <script src="https://s.pageclip.co/v1/pageclip.js" charSet="utf-8"></script>
                     <link rel="stylesheet" href="https://s.pageclip.co/v1/pageclip.css" media="screen" />
                     <div className="survey" style={{ margin: 'auto', width: '55%' }}>
                         <div className="header-form" style={{ margin: 'auto', textAlign: 'center', background: '#0EAAA6', padding: '25px' }}>
@@ -449,7 +450,7 @@ class ResQue extends React.Component {
                             <label style={{ fontSize: '14px' }}>Any Additional Comments?</label><br />
                             <input className="addedFeedback" type="textarea" name="addedFeedback" />
                             <br /><hr />
-                            <button type="submit" className="pageclip-form__submit" onClick={(e) => this.navigate(e)} style={{padding: '5px', margin: '0 auto 20px auto'}}>
+                            <button type="submit" className="pageclip-form__submit" onSubmit={(e) => this.navigate(e)} style={{padding: '5px', margin: '0 auto 20px auto'}}>
                                 <span style={{ color: '#FFFFFF' }}>Submit Response</span>
                             </button>
                         </form>
