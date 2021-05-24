@@ -26,7 +26,7 @@ class App extends React.Component {
     componentDidMount() {
         window.myLogger = log4javascript.getLogger();
         const ajaxAppender = new log4javascript.AjaxAppender("/storeLogs");
-        ajaxAppender.setBatchSize(50); // send in batches of 10
+        ajaxAppender.setBatchSize(10); // send in batches of 10
         ajaxAppender.setSendAllOnUnload(true); // send all remaining messages on window.beforeunload()
         window.myLogger.addAppender(ajaxAppender);
 
