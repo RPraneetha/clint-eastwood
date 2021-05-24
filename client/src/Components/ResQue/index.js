@@ -94,6 +94,7 @@ class ResQue extends React.Component {
                 <Loader />
                 :
                 <div>
+                    <script src="https://s.pageclip.co/v1/pageclip.js" charSet="utf-8"></script>
                     <link rel="stylesheet" href="https://s.pageclip.co/v1/pageclip.css" media="screen" />
                     <div className="survey" style={{ margin: 'auto', width: '55%' }}>
                         <div className="header-form" style={{ margin: 'auto', textAlign: 'center', background: '#0EAAA6', padding: '25px' }}>
