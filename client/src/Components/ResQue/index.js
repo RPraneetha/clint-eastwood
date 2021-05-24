@@ -12,7 +12,8 @@ class ResQue extends React.Component {
     }
 
     componentDidMount() {
-        window.myLogger.info(new Date() + ": Exit survey started by WorkerId: " + this.context.workerId)
+        this.props.logger.info(new Date() + ": Exit survey started by WorkerId: " + this.context.workerId +
+        "with stage " + this.context.stage + " and condition " + this.context.condition)
         setTimeout(function () {
             this.setState({ loading: false })
         }.bind(this), 2000)
@@ -23,13 +24,16 @@ class ResQue extends React.Component {
         let value = e.currentTarget.value
         let time = new Date()
 
-        window.myLogger.info(time + "Value for question ID " + className + " changed to " + value);
+       this.props.logger.info(time + "Value for question ID " + className + " changed to " + value);
     }
 
     navigate = (e) => {
         e.preventDefault();
-
-        var req = {
+        let workerId = this.context.workerId;
+        let stage = this.context.stage;
+        let condition = this.context.condition;
+        let logger = this.props.logger;
+        let req = {
             workerId: this.context.workerId,
             startTime: new Date(e.target.elements.startTime.value).getTime(),
             stopTime: new Date().getTime(),
@@ -64,10 +68,6 @@ class ResQue extends React.Component {
             intentions_q5: e.target.elements.intentions_q5.value,
             intentions_q6: e.target.elements.intentions_q6.value
         };
-        console.log(req);
-        console.log(this.context.stage);
-        console.log(this.context.stage === "1")
-
         fetch('/forms/log-exit', {
             method: "POST",
             headers: {
@@ -75,17 +75,21 @@ class ResQue extends React.Component {
                 "X-Requested-With": "XMLHttpRequest"
             },
             body: JSON.stringify(req)
+        }).then(function(){
+           logger.info(new Date() + ": ResQue survey submitted by WorkerId: " + workerId);
+            if (stage === "1") {
+                logger.info(new Date() + ": Redirecting to transition page - WorkerId: " + workerId);
+            } else if (stage === "2") {
+                logger.info(new Date() + ": Redirecting to completion page - WorkerId: " + workerId);
+            }
+        }).then(function (){
+            if (stage === "1") {
+                window.location = "https://crowdsensing.tk/dss?PROLIFIC_PID=" + workerId +
+                    "&cnd=" + condition + "&stage=2";
+            } else if (stage === "2") {
+                window.location = "https://app.prolific.co/submissions/complete?cc=84186F2D";
+            }
         });
-
-        window.myLogger.info(new Date() + ": ResQue survey submitted by WorkerId: " + this.context.workerId);
-        if (this.context.stage === "1") {
-            window.myLogger.info(new Date() + ": Redirecting to transition page - WorkerId: " + this.context.workerId);
-            window.location = "https://crowdsensing.tk/dss?PROLIFIC_PID=" + this.context.workerId +
-                "&cnd=" + this.context.condition + "&stage=2";
-        } else if (this.context.stage === "2") {
-            window.myLogger.info(new Date() + ": Redirecting to completion page - WorkerId: " + this.context.workerId);
-            window.location = "https://app.prolific.co/submissions/complete?cc=84186F2D";
-        }
     }
 
     render() {

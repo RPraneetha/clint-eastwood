@@ -7,8 +7,7 @@ class ATI extends React.Component {
 
     navigate = (e) => {
         e.preventDefault();
-        console.log(e);
-        var req = {
+        let req = {
             workerId: this.context.workerId,
             startTime: new Date(e.target.elements.startTime.value).getTime(),
             stopTime: new Date().getTime(),

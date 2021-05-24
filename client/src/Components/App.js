@@ -58,7 +58,7 @@ class App extends React.Component {
                                 }
                                 <Route exact path="/land" render={(props) => <LandingPage {...props} />} />
                                 <Route exact path="/search" render={(props) => <SearchPage {...props} logger={this.state.logger} />} />
-                                <Route exact path="/exitForm" render={(props) => <ResQue {...props} />} />
+                                <Route exact path="/exitForm" render={(props) => <ResQue {...props} logger={this.state.logger} />} />
                                 <Route exact path="/ty" render={(props) => <ThankYou {...props} />} />
                             </Router>
                         </div>
