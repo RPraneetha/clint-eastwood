@@ -7,6 +7,7 @@ const cors = require('cors');
 const indexRouter = require('./routes/index');
 const storeLogsRouter = require('./routes/storeLogs');
 const storeWorkerIdAndCodeRouter = require('./routes/storeWorkerIdAndCode');
+const storeFormResultsRouter = require('./routes/formResults');
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.use(express.static(path.join(__dirname, '/build')));
 app.use('/', indexRouter);
 app.use('/storeLogs', storeLogsRouter);
 app.use('/workerIdAndCode', storeWorkerIdAndCodeRouter);
+app.use('/forms', storeFormResultsRouter)
 
 if (process.env.NODE_ENV && process.env.NODE_ENV !== 'development') {
   app.get('*', (req, res) => {
