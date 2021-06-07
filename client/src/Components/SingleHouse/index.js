@@ -16,9 +16,27 @@ class SingleHouse extends React.Component {
     handleSubmit = () => {
         window.myLogger.info(new Date() + ": House " + this.props.house.description + " with House Id " +
             this.props.house["_id"]  + " selected by WorkerId: " + this.context.workerId);
+        if(this.props.dss) {
+            window.myLogger.info(new Date() + ": DSS house selected by WorkerId: " + this.context.workerId);
+        } else {
+            if(this.props.dssHouse === this.props.house["_id"])
+                window.myLogger.info(new Date() + ": DSS House manually selected by WorkerId: " + this.context.workerId);
+            else
+                window.myLogger.info(new Date() + ": House manually selected by WorkerId: " + this.context.workerId);
+        }
+        if(this.props.correctHouse === this.props.house["_id"])
+            window.myLogger.info(new Date() + ": Correct house submitted by WorkerId: " + this.context.workerId);
+        else
+            window.myLogger.info(new Date() + ": Incorrect house submitted by WorkerId: " + this.context.workerId);
+
     }
 
     resetFilterHandler = () => {
+        if(this.props.dss) {
+            window.myLogger.info(new Date() + ": Constraints reset from DSS house by WorkerId: " + this.context.workerId);
+        } else {
+            window.myLogger.info(new Date() + ": Constraints manually reset by WorkerId: " + this.context.workerId);
+        }
         this.setState({toggleConfirm: !this.state.toggleConfirm});
         this.props.resetFilter();
     }

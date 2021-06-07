@@ -17,8 +17,6 @@ class App extends React.Component {
         this.state = {
             loading: true,
             logger: null,
-            loggerUpdated: false,
-            scenarioIds: {},
             error: false
         }
     }

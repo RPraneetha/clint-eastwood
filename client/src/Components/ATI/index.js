@@ -35,6 +35,9 @@ class ATI extends React.Component {
         });
 
         this.props.logger.info(new Date() + ": ATI survey submitted by WorkerId: " + this.context.workerId);
+        this.props.logger.info(new Date() + ": ATI survey - Time Taken: " +
+            Math.abs(new Date() - new Date(e.target.elements.startTime.value))/1000
+            + "seconds - by WorkerId: " + this.context.workerId);
         this.props.history.push('/land');
     }
 

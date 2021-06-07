@@ -108,6 +108,14 @@ class SearchResults extends React.Component {
             })
     }
 
+    handleShowAllHouseToggle = () => {
+        if(!this.state.showAllHouses)
+            window.myLogger.info(new Date() + ": All available houses shown to WorkerId: " + this.context.workerId)
+        else
+            window.myLogger.info(new Date() + ": DSS house shown to WorkerId: " + this.context.workerId)
+        this.setState({showAllHouses: !this.state.showAllHouses})
+    }
+
     render() {
         return (
             this.state.loading ?
@@ -120,19 +128,21 @@ class SearchResults extends React.Component {
                 <div className="row">
                     <CardDeck>
                         { !this.state.showAllHouses ?
-                        <SingleHouse house={this.state.house} resetFilter={this.props.resetFilter}/>
+                        <SingleHouse house={this.state.house} resetFilter={this.props.resetFilter} dss={true}
+                                     correctHouse={this.props.scenario.correctHouse["_id"]} dssHouse={this.state.house["_id"]}/>
                         :
                             this.state.showAllHouses &&
                                 this.state.allHousesList.map(house => {
                                     return(
-                                        <SingleHouse house={house} key={house["_id"]} resetFilter={this.props.resetFilter}/>
+                                        <SingleHouse house={house} key={house["_id"]} resetFilter={this.props.resetFilter}
+                                                     dss={false} correctHouse={this.props.scenario.correctHouse["_id"]} dssHouse={this.state.house["_id"]}/>
                                     )
                                 })
                         }
                     </CardDeck>
                 </div>
                 <Form.Group as={Row}>
-                    <Button variant="danger" onClick={() => this.setState({showAllHouses: !this.state.showAllHouses})}>
+                    <Button variant="danger" onClick={this.handleShowAllHouseToggle}>
                         {
                             !this.state.showAllHouses ?
                                 "Show all available houses"

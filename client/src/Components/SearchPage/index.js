@@ -11,19 +11,18 @@ class SearchPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            filters : {},
+            filters : {
+                "duration": -1,
+                "maxRent": -1,
+                "houseType": -1,
+                "supermarkets": false,
+                "maxCommuteTime": -1,
+                "registration": false
+            },
             addPreferences: false,
             formElementIndex: 0,
             isSubmitted: false,
             loading: true
-        }
-        this.filters = {
-            "duration": -1,
-            "maxRent": -1,
-            "houseType": -1,
-            "supermarkets": false,
-            "maxCommuteTime": -1,
-            "registration": false
         }
         this.formRef = React.createRef();
     }
@@ -37,15 +36,23 @@ class SearchPage extends React.Component {
 
     handleInputChange = (event) => {
         const target = event.target;
-        let value = target.type === "checkbox" ? target.checked : target.value;
-        this.filters[target.id] = value;
-        this.props.logger.info(new Date() + ": " + target.id + " set to " + value + " on Search Page started by WorkerId: " + this.context.workerId)
-        this.setState({ isSubmitted: false}) //When user comes back to the search after submitting, state needs to be reversed
+        let filters = Object.assign({}, this.state.filters);
+        filters[target.id] = target.type === "checkbox" ? target.checked : target.value;
+        console.log("filters", filters, target.id, filters[target.id])
+        this.setState({filters}, function (){
+            this.props.logger.info(new Date() + ": " + target.id + " set to " + filters[target.id] + " on Search Page started by WorkerId: " + this.context.workerId)
+            console.log(this.state.filters)
+            this.setState({ isSubmitted: false}) //When user comes back to the search after submitting, state needs to be reversed
+        });
     }
 
     formSubmitHandler = () => {
         this.props.logger.info(new Date() + ": Form on Search Page submitted by WorkerId: " + this.context.workerId)
-        this.setState({filters: this.filters, isSubmitted: true})
+        this.props.logger.info(new Date() + ": WorkerId: " + this.context.workerId + " Constraints List")
+        for (const [key, value] of Object.entries(this.state.filters)) {
+            this.props.logger.info(new Date() + ": WorkerId: " + this.context.workerId + " Constraints List Filter " + `${key}: ${value}`);
+        }
+        this.setState({isSubmitted: true})
     }
 
     resetFilter = () => {
