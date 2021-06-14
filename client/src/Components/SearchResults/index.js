@@ -7,7 +7,7 @@ import './index.css';
 import WorkerIdContext from "../WorkerIdContext";
 
 const PROXY_URL = `https://infinite-plateau-04823.herokuapp.com/`;
-const CONSTRAINTS_URL = PROXY_URL + "https://cryptic-headland-35693.herokuapp.com/checkConstraints";
+const CONSTRAINTS_URL = PROXY_URL + "https://stark-temple-59548.herokuapp.com/checkConstraints";
 
 class SearchResults extends React.Component {
     constructor(props) {
@@ -94,7 +94,7 @@ class SearchResults extends React.Component {
     }
 
     async getIncorrectHouses() {
-        const INCORRECTHOUSES_URL = PROXY_URL + `https://cryptic-headland-35693.herokuapp.com/getIncorrectHouses?hid=${this.props.scenario.correctHouse["_id"]}`;
+        const INCORRECTHOUSES_URL = PROXY_URL + `https://stark-temple-59548.herokuapp.com/getIncorrectHouses?hid=${this.props.scenario.correctHouse["_id"]}`;
         await fetch(INCORRECTHOUSES_URL, { method: "GET" })
             .then(response => response.json())
             .then ((response) => {

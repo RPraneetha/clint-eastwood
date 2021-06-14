@@ -31,7 +31,7 @@ class LandingPage extends React.Component {
 
     async getScenario() {
         const PROXY_URL = `https://infinite-plateau-04823.herokuapp.com/`;
-        const URL = PROXY_URL + `https://cryptic-headland-35693.herokuapp.com/getScenarioAndHouse?sid=${this.context.scenarioId}`;
+        const URL = PROXY_URL + `https://stark-temple-59548.herokuapp.com/getScenarioAndHouse?sid=${this.context.scenarioId}`;
         try {
             let response = await fetch(URL, {method: "GET",
                 headers: {
