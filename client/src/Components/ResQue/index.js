@@ -33,6 +33,9 @@ class ResQue extends React.Component {
         let stage = this.context.stage;
         let condition = this.context.condition;
         let logger = this.props.logger;
+        logger.info(new Date() + ": ResQue survey - Time Taken: " +
+            Math.abs(new Date() - new Date(e.target.elements.startTime.value))/1000
+            + "seconds - by WorkerId: " + this.context.workerId);
         let req = {
             workerId: this.context.workerId,
             startTime: new Date(e.target.elements.startTime.value).getTime(),
@@ -77,9 +80,6 @@ class ResQue extends React.Component {
             body: JSON.stringify(req)
         }).then(function(){
            logger.info(new Date() + ": ResQue survey submitted by WorkerId: " + workerId);
-           logger.info(new Date() + ": ResQue survey - Time Taken: " +
-                Math.abs(new Date() - new Date(e.target.elements.startTime.value))/1000
-                + "seconds - by WorkerId: " + this.context.workerId);
             if (stage === "1") {
                 logger.info(new Date() + ": Redirecting to transition page - WorkerId: " + workerId);
             } else if (stage === "2") {
